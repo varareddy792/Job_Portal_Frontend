@@ -1,2 +1,2 @@
-# eventPooling
-Repo for Event Pooling POC
+# Job Portal
+Repo for Job Portal POC
