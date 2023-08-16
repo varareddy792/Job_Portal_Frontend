@@ -1,9 +1,12 @@
 import React from 'react';
+import AllRoutes from './AllRoutes';
+import Header from './components/layout/Header';
 
 const App = () => {
   return (
-    <div>
-      <h1 className="bg-orange-800">hiiiiiiiiiii</h1>
+    <div className="h-screen">
+      <Header />
+      <AllRoutes />
     </div>
   );
 }
