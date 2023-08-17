@@ -43,6 +43,14 @@ const SignUp = () => {
         alert(JSON.stringify(data));
     };
 
+    const googleAuth = () => {
+        window.open(
+            `http://localhost:4000/auth/google`,
+            "_self",
+            "width=500,height=600"
+        )
+    }
+
     return (
         <div className="bg-zinc-100 font-sans">
             <div className="px-20 h-[90%] py-14 flex justify-center">
@@ -149,7 +157,9 @@ const SignUp = () => {
                                     </div>
                                     <div className="col-start-2 col-end-5 flex justify-center items-start flex-col">
                                         <p className="text-sm font-bold mb-1">Continue with</p>
-                                        <button className="flex justify-center items-center border-2 border-blue-300 rounded-3xl px-2 py-1">
+                                        <button className="flex justify-center items-center border-2 border-blue-300 rounded-3xl px-2 py-1"
+                                            onClick={googleAuth}
+                                        >
                                             <FcGoogle size={20} />
                                             <span className="ml-1">Google</span>
                                         </button>
