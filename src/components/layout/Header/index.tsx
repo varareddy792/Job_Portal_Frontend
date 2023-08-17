@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <nav className="bg-[#fff] shadow sticky top-0 h-[10%] flex z-50 font-sans">
-            <div className="px-20 w-screen flex items-center justify-between">
+            <div className="px-40 w-screen flex items-center justify-between">
                 {/* Logo or site name  */}
                 <div className="flex space-x-14 items-center">
                     <Link className="text-black text-2xl font-bold" to="/">JOB PORTAL</Link>

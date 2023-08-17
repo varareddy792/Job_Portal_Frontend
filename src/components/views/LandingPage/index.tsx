@@ -4,13 +4,13 @@ import { BiSearch } from 'react-icons/bi';
 const LandingPage = () => {
     return (
         <div className="bg-zinc-100 h-screen">
-            <div className="px-20 pt-20">
+            <div className="px-40 pt-20">
                 <div className="mb-8">
                     <h1 className="font-bold text-center text-5xl mb-3">Find your dream job now</h1>
                     <h6 className="font-medium text-center text-lg">5 lakh+ jobs for you to explore</h6>
                 </div>
                 <div className="w-full flex justify-center text-center">
-                    <div className="relative flex items-center justify-around w-7/12 h-14 rounded-3xl focus-within:shadow-lg bg-white overflow-hidden">
+                    <div className="relative flex items-center justify-around w-8/12 h-14 rounded-3xl focus-within:shadow-lg bg-white overflow-hidden">
                         <div className="grid place-items-center h-full w-12 text-gray-300">
                             <BiSearch size={25} />
                         </div>
