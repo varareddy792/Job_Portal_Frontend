@@ -33,7 +33,7 @@ const SignupSchema = yup
     })
     .required();
 
-const Shignup = () => {
+const SignUp = () => {
     const {
         register,
         handleSubmit,
@@ -208,4 +208,4 @@ const Shignup = () => {
     )
 }
 
-export default Shignup;
+export default SignUp;
