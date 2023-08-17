@@ -1,10 +1,7 @@
-import React from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { BsCheck2Circle } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
-import white_boy from '../../assets/png/white-boy.png';
 import briefcase from '../../assets/svg/briefcase.svg';
 import schoolbag from '../../assets/svg/schoolbag.svg';
 
@@ -48,49 +45,8 @@ const SignUp = () => {
 
     return (
         <div className="bg-zinc-100 font-sans">
-            <div className="px-20 h-[90%] py-14">
-                <div className="grid grid-cols-3 h-full">
-                    <div>
-                        <div className="bg-white h-96 w-72 rounded-xl shadow flex flex-col justify-around items-center px-6 fixed">
-                            <div className="h-1/2 w-full flex flex-col justify-center items-center">
-                                <img
-                                    src={white_boy}
-                                    alt="white_boy"
-                                    width="144px"
-                                    height="144px"
-                                />
-                            </div>
-                            <div className="h-1/2">
-                                <h3 className="text-center font-semibold text-lg mb-2">On registering, you can</h3>
-                                <div className="text-sm break-words font-light">
-                                    <div className="mb-1 flex justify-start">
-                                        <div className="m-1 ml-0">
-                                            <BsCheck2Circle color="green" />
-                                        </div>
-                                        <p>
-                                            Build your profile and let recruiters find you
-                                        </p>
-                                    </div>
-                                    <div className="mb-1 flex justify-start">
-                                        <div className="m-1 ml-0">
-                                            <BsCheck2Circle color="green" />
-                                        </div>
-                                        <p>
-                                            Get job postings delivered right to your email
-                                        </p>
-                                    </div>
-                                    <div className="flex justify-start">
-                                        <div className="m-1 ml-0">
-                                            <BsCheck2Circle color="green" />
-                                        </div>
-                                        <p>
-                                            Find a job and grow your career as well
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div className="px-20 h-[90%] py-14 flex justify-center">
+                <div className="h-full w-8/12">
                     <div className="col-start-2 col-end-4">
                         <div className="bg-white rounded-xl shadow p-10 grid grid-cols-4">
                             <h1 className="font-semibold text-xl mb-5 col-start-1 col-end-5"> Find a job & grow your career</h1>
@@ -193,8 +149,8 @@ const SignUp = () => {
                                     </div>
                                     <div className="col-start-2 col-end-5 flex justify-center items-start flex-col">
                                         <p className="text-sm font-bold mb-1">Continue with</p>
-                                        <button className="flex justify-center items-center border-2 border-blue-300 rounded-3xl px-2 py-1 hover:bg-blue-300">
-                                            <FcGoogle size={25} />
+                                        <button className="flex justify-center items-center border-2 border-blue-300 rounded-3xl px-2 py-1">
+                                            <FcGoogle size={20} />
                                             <span className="ml-1">Google</span>
                                         </button>
                                     </div>

@@ -16,7 +16,7 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="flex space-x-4 items-center">
-                    <button className="rounded-3xl border-2 border-blue-300 hover:bg-blue-300 px-5 py-1.5">
+                    <button className="rounded-3xl border-2 border-blue-300 px-5 py-1.5">
                         Login
                     </button>
                     <Link to="/registration" className="
