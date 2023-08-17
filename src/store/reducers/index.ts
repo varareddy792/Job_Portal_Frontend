@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 // Register
-import { registerSlice } from './registerSlice';
+import { registerSlice } from './register';
 
 export const reducer = combineReducers({
     // Register
