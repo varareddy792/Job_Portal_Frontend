@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
 import LandingPage from '../components/views/LandingPage';
-import SignUp from '../components/views/SignUp';
+import SignUp from '../components/views/Signup';
 import HomePage from '../components/views/HomePage';
 import Profile from '../components/views/Profile/Profile';
 
