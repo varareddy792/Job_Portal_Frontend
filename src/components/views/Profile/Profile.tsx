@@ -1,5 +1,10 @@
 import React from 'react';
 import { FiEdit2 } from "react-icons/fi";
+import { BsTelephone } from "react-icons/bs";
+import { HiOutlineMail } from "react-icons/hi";
+import { MdVerified } from "react-icons/md";
+import { SlLocationPin } from "react-icons/sl";
+import { BsBriefcase, BsCalendar4 } from "react-icons/bs";
 
 export default function Profile() {
   return (
@@ -23,23 +28,23 @@ export default function Profile() {
               <hr className="mb-4" />
               <div className="grid grid-cols-2">
                 <div>
-                  <div className="mb-1">
-                    <span>Balasore, INDIA</span>
+                  <div className="mb-2 flex items-center text-sm font-medium text-gray-500">
+                    <SlLocationPin /><span className="ml-1">Balasore, INDIA</span>
                   </div>
-                  <div className="mb-1">
-                    <span>Fresher</span>
+                  <div className="mb-2 flex items-center text-sm font-medium text-gray-500">
+                    <BsBriefcase /><span className="ml-1">Fresher</span>
                   </div>
-                  <div>
-                    <span>Add availability to join</span>
+                  <div className="flex items-center text-sm font-medium text-gray-500">
+                    <BsCalendar4 /><span className="ml-1">Add availability to join</span>
                   </div>
                 </div>
                 <div className="border-l border-gray-300">
                   <div className="ml-2">
-                    <div className="mb-1">
-                      <span>7064772937</span>
+                    <div className="mb-2 flex items-center text-sm font-medium text-gray-500">
+                      <BsTelephone /><span className="ml-1 mr-1">7064772937</span><MdVerified color="green" />
                     </div>
-                    <div>
-                      <span>dibyalochanparida@gmail.com</span>
+                    <div className="flex items-center text-sm font-medium text-gray-500">
+                      <HiOutlineMail /><span className="ml-1 mr-1">dibyalochanparida@gmail.com</span><MdVerified color="green" />
                     </div>
                   </div>
                 </div>
@@ -130,6 +135,14 @@ export default function Profile() {
                 <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">React</span>
                 <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">NodeJs</span>
               </div>
+            </div>
+            {/* card */}
+            <div className="w-full rounded-2xl bg-white p-4 mt-5">
+              <div className="flex items-center justify-between mb-4">
+                <h1>Employment</h1>
+                <h1 className="text-blue-600 font-medium">Add employment</h1>
+              </div>
+              <span className="text-sm text-gray-500">Mention your employment details including your current and previous company work experience.</span>
             </div>
           </div>
         </div>
