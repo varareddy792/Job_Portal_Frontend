@@ -53,8 +53,8 @@ const SignUp = () => {
 
     return (
         <div className="bg-zinc-100 font-sans">
-            <div className="px-20 h-[90%] py-14 flex justify-center">
-                <div className="h-full w-8/12">
+            <div className="px-40 h-[90%] py-14 flex justify-center">
+                <div className="h-full w-10/12">
                     <div className="col-start-2 col-end-4">
                         <div className="bg-white rounded-xl shadow p-10 grid grid-cols-4">
                             <h1 className="font-semibold text-xl mb-5 col-start-1 col-end-5"> Find a job & grow your career</h1>
