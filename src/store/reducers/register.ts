@@ -6,7 +6,8 @@ interface User {
     password: string,
     email: string,
     mobileNumber: string,
-    userType: string
+    userType: string,
+    workStatus: boolean
 }
 export interface registerUserState {
     loading: boolean;
@@ -33,7 +34,8 @@ export const registerUser = createAsyncThunk(
                     password: data.password,
                     email: data.email,
                     mobileNumber: data.mobileNumber,
-                    userType: data.userType
+                    userType: data.userType,
+                    workStatus: data.workStatus,
                 });
             return response.data;
         } catch (error) {
