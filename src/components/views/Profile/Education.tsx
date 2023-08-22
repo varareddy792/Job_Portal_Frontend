@@ -4,6 +4,7 @@ import Modal from '../../commonComponents/Modal';
 export default function Education() {
   const [isOpen, setIsOpen] = useState(false);
 
+  
   const openModal = () => {
     setIsOpen(true);
   };
