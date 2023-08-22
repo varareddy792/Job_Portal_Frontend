@@ -1,21 +1,27 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { registerUser } from '../../../store/reducers/register';
+import { useAppDispatch } from '../../../';
+import { useAppSelector } from '../../../';
+import { googleAuthSignUp } from '../../../store/reducers/googleAuth';
+import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-import briefcase from '../../assets/svg/briefcase.svg';
-import schoolbag from '../../assets/svg/schoolbag.svg';
+import briefcase from '../../../assets/svg/briefcase.svg';
+import schoolbag from '../../../assets/svg/schoolbag.svg';
 
 interface IFormInputs {
-    fullName: string;
-    emailID: string;
+    name: string;
+    email: string;
     password: string;
     mobileNumber: string;
 }
 
 const SignupSchema = yup
     .object({
-        fullName: yup.string().label("Full Name").required(),
-        emailID: yup.string().email().required(),
+        name: yup.string().label("Full Name").required(),
+        email: yup.string().email().required(),
         password: yup.string()
             .required('Password is required')
             .min(8, 'Password must be at least 8 characters long')
@@ -31,6 +37,9 @@ const SignupSchema = yup
     .required();
 
 const SignUp = () => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { success } = useAppSelector((state) => state.register);
     const {
         register,
         handleSubmit,
@@ -39,16 +48,25 @@ const SignUp = () => {
         resolver: yupResolver(SignupSchema)
     });
 
+    useEffect(() => {
+        if (success) {
+            navigate('/homePage');
+        }
+    }, [success, navigate])
+
     const onSubmit = (data: IFormInputs) => {
-        alert(JSON.stringify(data));
+        dispatch(registerUser({
+            name: data.name,
+            password: data.password,
+            email: data.email,
+            mobileNumber: data.mobileNumber,
+            userType: "jobSeeker",
+            workStatus: false,
+        }));
     };
 
     const googleAuth = () => {
-        window.open(
-            `http://localhost:4000/auth/google`,
-            "_self",
-            "width=500,height=600"
-        )
+        googleAuthSignUp();
     }
 
     return (
@@ -67,10 +85,10 @@ const SignUp = () => {
                                         <input className="shadow-sm appearance-none border rounded-xl w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             type="text"
                                             placeholder="What is your name?"
-                                            {...register("fullName")}
+                                            {...register("name")}
                                             required
                                         />
-                                        {errors.fullName && <p className="font-normal text-xs text-red-500">{errors.fullName.message}</p>}
+                                        {errors.name && <p className="font-normal text-xs text-red-500">{errors.name.message}</p>}
                                     </div>
                                     <div className="mb-4">
                                         <label className="block text-sm font-semibold mb-2">
@@ -79,11 +97,11 @@ const SignUp = () => {
                                         <input className="shadow-sm appearance-none border rounded-xl w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             type="email"
                                             placeholder="Tell us your Email ID"
-                                            {...register("emailID")}
+                                            {...register("email")}
                                             required
                                         />
-                                        {errors.emailID && <p className="font-normal text-xs text-red-500">{errors.emailID.message}</p>}
-                                        {!errors.emailID && <span className="font-normal text-xs text-gray-500">We'll send you relevant jobs in your mail</span>}
+                                        {errors.email && <p className="font-normal text-xs text-red-500">{errors.email.message}</p>}
+                                        {!errors.email && <span className="font-normal text-xs text-gray-500">We'll send you relevant jobs in your mail</span>}
                                     </div>
                                     <div className="mb-4">
                                         <label className="block text-sm font-semibold mb-2">
@@ -112,7 +130,7 @@ const SignUp = () => {
                                             <span className="absolute top-3 left-1">+91</span>
                                         </div>
                                         {errors.mobileNumber && <p className="font-normal text-xs text-red-500">{errors.mobileNumber.message}</p>}
-                                        {!errors.emailID && <span className="font-normal text-xs text-gray-500">Recruiters will call on this number</span>}
+                                        {!errors.email && <span className="font-normal text-xs text-gray-500">Recruiters will call on this number</span>}
                                     </div>
                                     <div className="mb-4">
                                         <span className="block text-sm font-semibold mb-2">
