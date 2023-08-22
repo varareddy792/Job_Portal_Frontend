@@ -104,7 +104,7 @@ export default function Profile() {
                 <label className="cursor-pointer px-3 py-1 mb-1 rounded-3xl border-2 border-blue-400">
                   <input type="file" className="hidden" />
                   Upload resume
-                </label>
+                </label>                
                 <span className=" text-gray-400">Supported Formats: doc, docx, rtf, pdf, upto 2 MB</span>
               </div>
             </div>
@@ -136,7 +136,9 @@ export default function Profile() {
                 <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">React</span>
                 <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">NodeJs</span>
               </div>
-            </div>
+            </div>            
+            {/* card */}
+            <Education/>
             {/* card */}
             <Education/>
             {/* card */}
