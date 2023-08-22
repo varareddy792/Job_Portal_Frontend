@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 export default function Modal({ modalTitle, modalBody, isOpen, setIsOpen }:any) {
-
   // const [isOpen, setIsOpen] = useState(false);
 
   // const openModal = () => {
