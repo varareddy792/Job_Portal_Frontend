@@ -5,6 +5,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { MdVerified } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 import { BsBriefcase, BsCalendar4 } from "react-icons/bs";
+import Education from './Education';
 
 export default function Profile() {
   return (
@@ -136,6 +137,8 @@ export default function Profile() {
                 <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">NodeJs</span>
               </div>
             </div>
+            {/* card */}
+            <Education/>
             {/* card */}
             <div className="w-full rounded-2xl bg-white p-4 mt-5">
               <div className="flex items-center justify-between mb-4">
