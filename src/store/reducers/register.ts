@@ -26,7 +26,7 @@ const initialState: registerUserState = {
 }
 
 export const registerUser = createAsyncThunk(
-    "auth/register", async (data: User) => {
+    "register", async (data: User) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_PATH}/auth/register`,
                 {
@@ -36,30 +36,36 @@ export const registerUser = createAsyncThunk(
                     mobileNumber: data.mobileNumber,
                     userType: data.userType,
                     workStatus: data.workStatus,
-                });
-            return response.data;
+                }
+            );
+
+            if (response.status >= 200 && response.status < 300) {
+                return response.data;
+            }
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     });
 
 const registerSlice = createSlice({
-    name: 'registerUser',
+    name: 'register',
     initialState,
     extraReducers: (builder) => {
         builder.addCase(registerUser.pending, (state) => {
             state.loading = true;
+            state.success = false;
+            state.error = false;
         });
         builder.addCase(registerUser.fulfilled, (state, action: PayloadAction<User[]>) => {
             state.loading = false;
-            state.error = false;
             state.success = true;
+            state.error = false;
             state.user = action.payload;
         });
         builder.addCase(registerUser.rejected, (state, action) => {
+            state.success = false;
             state.loading = false;
             state.error = true;
-            state.success = false;
             state.user = [];
             state.errorMessage = action.error.message;
         });
