@@ -1,0 +1,62 @@
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+interface Headline {
+  resumeHeadline: string,
+  userId: string,
+}
+export interface resumeHeadlineState {
+  loading: boolean;
+  error: boolean;
+  success: boolean;
+  user: Array<Headline>;
+  errorMessage: string | undefined;
+
+}
+const initialState: resumeHeadlineState = {
+  loading: false,
+  error: false,
+  success: false,
+  user: [],
+  errorMessage: undefined,
+}
+
+export const resumeHeadlineUpdate = createAsyncThunk(
+  "profile/resumeHeadline", async (data: Headline) => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_PATH}/profile/resumeHeadline`,
+        {
+          resumeHeadline: data.resumeHeadline,
+          userId: data.userId,
+
+        });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+const resumeHeadlineSlice = createSlice({
+  name: 'resumeHeadlineUpdate',
+  initialState,
+  extraReducers: (builder) => {
+    builder.addCase(resumeHeadlineUpdate.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(resumeHeadlineUpdate.fulfilled, (state, action: PayloadAction<Headline[]>) => {
+      state.loading = false;
+      state.error = false;
+      state.success = true;
+      state.user = action.payload;
+    });
+    builder.addCase(resumeHeadlineUpdate.rejected, (state, action) => {
+      state.loading = false;
+      state.error = true;
+      state.success = false;
+      state.user = [];
+      state.errorMessage = action.error.message;
+    });
+  },
+  reducers: {}
+});
+export default resumeHeadlineSlice.reducer;
