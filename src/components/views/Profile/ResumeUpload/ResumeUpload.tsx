@@ -1,35 +1,38 @@
-import { ChangeEvent, useRef } from 'react';
-import axios from 'axios';
+import { ChangeEvent, useEffect, useRef } from 'react';
+import { useAppSelector } from '../../../..';
+import { useAppDispatch } from '../../../..';
+import { resumeUpload } from '../../../../store/reducers/jobSeekerProfile/uploadResume';
 
 const ResumeUpload = () => {
-  
-  const fileInputRef = useRef<HTMLInputElement|null>(null);
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const dispatch = useAppDispatch();
+  const {success, errorMessage,error} = useAppSelector((state)=>state.jobSeekerResumeUpload)
+
+  useEffect(() => {
+    if (success) {
+      alert('Resume successfully uploaded');
+    }
+    if (error) {
+      alert(`${errorMessage}`);
+    }
+  }, [success, error, errorMessage]);
+  
   const handleFileChange = async (event: ChangeEvent) => {
     event.preventDefault();
-    console.log('in change')
     const selectedFile = fileInputRef.current && fileInputRef.current.files && fileInputRef.current.files[0];
     if (selectedFile) {
       const formData = new FormData();
 
-      formData.append('id', "1");
-      formData.append('abc', 'abc');
       formData.append('file', selectedFile);
-      console.log('form data ', formData, 'id',formData.entries() );
+
       try {
-        const response = await axios.post(
-          "http://localhost:4000/multer/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": 'multipart/form-data'
-            }
-          }
-        );
+        dispatch(resumeUpload(formData))
+
         if (fileInputRef.current) {
           fileInputRef.current.value = '';
         };
-        alert((`${JSON.stringify(response.data)}, status:${response.data.status}`));
+        
       } catch (error) {
         console.log('error', error);
       }

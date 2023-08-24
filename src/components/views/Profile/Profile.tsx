@@ -97,7 +97,7 @@ export default function Profile() {
           </div>
           <div className="col-start-2 col-end-5">
             {/* card  profile upload*/}
-            <ResumeUpload/>
+            <ResumeUpload />
             {/* <div className="w-full rounded-2xl bg-white p-4">
               <h1 className="mb-4">Resume</h1>
               <p className="mb-4 text-sm text-gray-500">
