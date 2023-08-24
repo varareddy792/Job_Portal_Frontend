@@ -25,8 +25,11 @@ const initialState: registerUserState = {
     errorMessage: undefined,
 }
 
+
+
 export const registerUser = createAsyncThunk(
-    "auth/register", async (data: User) => {
+
+    "register", async (data: User) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_PATH}/auth/register`,
                 {
@@ -36,10 +39,14 @@ export const registerUser = createAsyncThunk(
                     mobileNumber: data.mobileNumber,
                     userType: data.userType,
                     workStatus: data.workStatus,
-                });
-            return response.data;
+
+                }
+            );
+            if (response.status >= 200 && response.status < 300) {
+                return response.data;
+            }
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     });
 

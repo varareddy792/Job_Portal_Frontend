@@ -28,11 +28,12 @@ export const keySkillsUpdate = createAsyncThunk(
         {
           keySkills: data.keySkills,
           userId: data.userId,
-
         });
-      return response.data;
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      }
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   });
 

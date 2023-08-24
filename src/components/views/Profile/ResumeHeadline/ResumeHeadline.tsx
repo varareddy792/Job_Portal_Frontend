@@ -1,12 +1,22 @@
 import { FiEdit2 } from "react-icons/fi";
 import Modal from "../../../commonComponents/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ResumeHeadlineForm from "./ResumeHeadlineForm";
+import axios from "axios";
 
 const ResumeHeadline = () => {
   const modalTitle = 'Resume headline';
-  const modalBody = <ResumeHeadlineForm />;
+
   const [isOpen, setIsOpen] = useState(false)
+  const [resumeHeadline, setResumeHeadline] = useState();
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_PATH}/profile/resumeHeadline/1`).then((response) => {
+      setResumeHeadline(response.data.data[0].resumeHeadline);
+    });
+  }, [resumeHeadline])
+
+
+  const modalBody = <ResumeHeadlineForm resumeHeadline={resumeHeadline} setResumeHeadline={setResumeHeadline} />;
 
   return (
     <div className="w-full rounded-2xl bg-white p-4 mt-5">
@@ -15,7 +25,7 @@ const ResumeHeadline = () => {
           <FiEdit2 onClick={() => setIsOpen(true)} /> </span>
       </div>
       <p className="mb-4 text-sm text-gray-500">
-        Looking for a challenge assignment where I can prove my ability ,working knowledge solving through my sincerity ,dedication & my hard work that would give me an opportunity to grow my self in the organization.
+        {resumeHeadline}
       </p>
       <Modal
         isOpen={isOpen}

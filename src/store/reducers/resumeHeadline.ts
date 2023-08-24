@@ -20,7 +20,6 @@ const initialState: resumeHeadlineState = {
   user: [],
   errorMessage: undefined,
 }
-
 export const resumeHeadlineUpdate = createAsyncThunk(
   "profile/resumeHeadline", async (data: Headline) => {
     try {
@@ -28,11 +27,13 @@ export const resumeHeadlineUpdate = createAsyncThunk(
         {
           resumeHeadline: data.resumeHeadline,
           userId: data.userId,
-
-        });
-      return response.data;
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      }
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   });
 
