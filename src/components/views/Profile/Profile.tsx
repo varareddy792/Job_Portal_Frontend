@@ -6,6 +6,7 @@ import { MdVerified } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 import { BsBriefcase, BsCalendar4 } from "react-icons/bs";
 import Education from './Education';
+import ProfileSummary from './ProfileSummary';
 
 export default function Profile() {
   return (
@@ -138,7 +139,8 @@ export default function Profile() {
               </div>
             </div>
             {/* card */}
-            <Education/>
+            <Education />
+            <ProfileSummary />
             {/* card */}
             <div className="w-full rounded-2xl bg-white p-4 mt-5">
               <div className="flex items-center justify-between mb-4">

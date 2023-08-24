@@ -32,19 +32,36 @@ const Modal = ({ modalTitle, modalBody, isOpen, setIsOpen }: any) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <Dialog.Title className="text-lg font-medium leading-6 text-gray-900 px-4 py-4 flex justify-center items-start relative">
+              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title className="text-lg font-medium leading-6 text-gray-900 flex justify-between items-center">
                   <h1>{modalTitle}</h1>
                   <button
                     onClick={closeDialog}
                     type="button"
-                    className="absolute right-4"
+                    className="outline-0"
                   >
                     <RxCross1 />
                   </button>
                 </Dialog.Title>
                 <div className="mt-2">
                   {modalBody}
+                </div>
+                <div className="mt-2 flex justify-end items-center">
+                  <div>
+                    <button
+                      type="button"
+                      className="mr-3"
+                      onClick={closeDialog}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded-3xl bg-blue-500 text-white px-5 py-1.5"
+                    >
+                      Save
+                    </button>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
