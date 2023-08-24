@@ -18,7 +18,7 @@ interface IFormInputs {
     mobileNumber: string;
 }
 
-const SignupSchema = yup
+const SignUpSchema = yup
     .object({
         name: yup.string().label("Full Name").required(),
         email: yup.string().email().required(),
@@ -45,7 +45,7 @@ const SignUp = () => {
         handleSubmit,
         formState: { errors }
     } = useForm<IFormInputs>({
-        resolver: yupResolver(SignupSchema)
+        resolver: yupResolver(SignUpSchema)
     });
 
     useEffect(() => {

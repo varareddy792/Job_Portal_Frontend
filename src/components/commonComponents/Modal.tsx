@@ -1,41 +1,75 @@
-import React from 'react'
+import React, { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { RxCross1 } from 'react-icons/rx';
 
-export default function Modal({ modalTitle, modalBody, isOpen, setIsOpen }: any) {
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const openModal = () => {
-  //   setIsOpen(true);
-  // };
-
-  const closeModal = () => {
+const Modal = ({ modalTitle, modalBody, isOpen, setIsOpen }: any) => {
+  const closeDialog = () => {
     setIsOpen(false);
   };
-
   return (
-    <div>
-      {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-red">
-          <div className="inset-0"></div>
-          <div className="bg-white p-6 rounded shadow-lg w-1/2">
-            <h2 className="text-lg font-semibold mb-4">{modalTitle}</h2>
-            <p className="mb-4">
-              {modalBody}
-            </p>
-            <button
-              onClick={closeModal}
-              className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded float-right"
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={closeDialog}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-25" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
             >
-              Close
-            </button>
-            <button
-              onClick={closeModal}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded float-right mr-2"
-            >
-              Save
-            </button>
+              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title className="text-lg font-medium leading-6 text-gray-900 flex justify-between items-center">
+                  <h1>{modalTitle}</h1>
+                  <button
+                    onClick={closeDialog}
+                    type="button"
+                    className="outline-0"
+                  >
+                    <RxCross1 />
+                  </button>
+                </Dialog.Title>
+                <div className="mt-2">
+                  {modalBody}
+                </div>
+                <div className="mt-2 flex justify-end items-center">
+                  <div>
+                    <button
+                      type="button"
+                      className="mr-3"
+                      onClick={closeDialog}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded-3xl bg-blue-500 text-white px-5 py-1.5"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
           </div>
         </div>
-      )}
-    </div>
-  )
-}
+      </Dialog>
+    </Transition>
+  );
+};
+
+export default Modal;
