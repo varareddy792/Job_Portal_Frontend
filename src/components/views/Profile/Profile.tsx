@@ -9,6 +9,7 @@ import Education from './Education';
 import ResumeHeadline from './ResumeHeadline/ResumeHeadline';
 import KeySkills from './KeySkills/KeySkills';
 import ProfileSummary from './ProfileSummary';
+import ResumeUpload from './ResumeUpload/ResumeUpload';
 
 export default function Profile() {
   return (
@@ -97,8 +98,9 @@ export default function Profile() {
             </div>
           </div>
           <div className="col-start-2 col-end-5">
-            {/* card */}
-            <div className="w-full rounded-2xl bg-white p-4">
+            {/* card  profile upload*/}
+            <ResumeUpload />
+            {/* <div className="w-full rounded-2xl bg-white p-4">
               <h1 className="mb-4">Resume</h1>
               <p className="mb-4 text-sm text-gray-500">
                 Resume is the most important document recruiters look for. Recruiters generally do not look at profiles without resumes.
@@ -110,7 +112,8 @@ export default function Profile() {
                 </label>
                 <span className=" text-gray-400">Supported Formats: doc, docx, rtf, pdf, upto 2 MB</span>
               </div>
-            </div>
+            </div> */}
+
             {/* card */}
             <ResumeHeadline />
             {/* card */}
