@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useRef } from 'react';
 import { useAppSelector } from '../../../..';
 import { useAppDispatch } from '../../../..';
-import { resumeUpload } from '../../../../store/reducers/jobSeekerProfile/uploadResume';
+import { clearUploadState, resumeUpload } from '../../../../store/reducers/jobSeekerProfile/uploadResume';
 
 const ResumeUpload = () => {
 
@@ -12,11 +12,13 @@ const ResumeUpload = () => {
   useEffect(() => {
     if (success) {
       alert('Resume successfully uploaded');
+      dispatch(clearUploadState);
     }
     if (error) {
       alert(`${errorMessage}`);
+      dispatch(clearUploadState)
     }
-  }, [success, error, errorMessage]);
+  }, [success, error, errorMessage,dispatch]);
   
   const handleFileChange = async (event: ChangeEvent) => {
     event.preventDefault();

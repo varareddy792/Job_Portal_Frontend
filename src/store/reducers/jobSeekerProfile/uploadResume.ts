@@ -58,9 +58,7 @@ export const resumeUpload = createAsyncThunk(
       );
       return response.data;
     } catch (error: any) {
-
       throw (error.response.data.message);
-     
     }
   }
 )
@@ -91,7 +89,15 @@ const jobSeekerUploadSlice = createSlice({
     })
   }
   ,
-  reducers: {}
+  reducers: {
+    clearUploadState: (state) => {
+      state.loading = false;
+      state.error = false;
+      state.success = false;
+      return state;
+    },
+  }
 });
 
 export default jobSeekerUploadSlice.reducer;
+export const { clearUploadState }=  jobSeekerUploadSlice.actions ;
