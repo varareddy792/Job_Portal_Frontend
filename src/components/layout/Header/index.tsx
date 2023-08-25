@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
+    const location = useLocation();
     return (
         <nav className="bg-[#fff] shadow sticky top-0 h-[10%] flex z-8 font-sans">
             <div className="px-40 w-screen flex items-center justify-between">
@@ -9,13 +9,13 @@ const Header = () => {
                 <div className="flex space-x-14 items-center">
                     <Link className="text-black text-2xl font-bold" to="/">JOB PORTAL</Link>
                     {/* Navigation Link*/}
-                    <div className="flex space-x-6">
+                    {location.pathname !== "/registration" && <div className="flex space-x-6">
                         <Link to="/home" className="text-black hover:border-b-2 hover:border-orange-400">Jobs</Link>
                         <Link to="#" className="text-black hover:border-b-2 hover:border-orange-400">Companies</Link>
                         <Link to="#" className="text-black hover:border-b-2 hover:border-orange-400">Services</Link>
-                    </div>
+                    </div>}
                 </div>
-                <div className="flex space-x-4 items-center">
+                {location.pathname !== "/registration" ? <div className="flex space-x-4 items-center">
                     <button className="rounded-3xl border-2 border-blue-300 px-5 py-1.5">
                         Login
                     </button>
@@ -43,8 +43,11 @@ const Header = () => {
                     <div className="border border-gray-200 h-5"></div>
                     <button className="">For employers</button>
                 </div>
-            </div>
-        </nav>
+                    :
+                    <span>Already Registered? <Link to="/" className="text-blue-800 font-semibold">Login</Link> here</span>
+                }
+            </div >
+        </nav >
     )
 }
 export default Header;
