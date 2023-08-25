@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 interface Headline {
   keySkills: string,
-  userId: string,
 }
 export interface keySkillsState {
   loading: boolean;
@@ -24,11 +24,15 @@ const initialState: keySkillsState = {
 export const keySkillsUpdate = createAsyncThunk(
   "profile/keySkills", async (data: Headline) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_PATH}/profile/keySkills`,
+      const response = await axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/keySkills`,
         {
           keySkills: data.keySkills,
-          userId: data.userId,
-        });
+        }, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Bearer ${Cookies.get('token')}`
+        }
+      });
       if (response.status >= 200 && response.status < 300) {
         return response.data;
       }

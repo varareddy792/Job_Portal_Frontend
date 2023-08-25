@@ -3,6 +3,7 @@ import Modal from "../../../commonComponents/Modal";
 import { useEffect, useState } from "react";
 import ResumeHeadlineForm from "./ResumeHeadlineForm";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const ResumeHeadline = () => {
   const modalTitle = 'Resume headline';
@@ -10,9 +11,20 @@ const ResumeHeadline = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [resumeHeadline, setResumeHeadline] = useState();
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_PATH}/profile/resumeHeadline/1`).then((response) => {
+    axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/resumeHeadline`,
+      {
+        resumeHeadline: '',
+      }, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Bearer ${Cookies.get('token')}`
+      }
+    }
+    ).then((response) => {
       setResumeHeadline(response.data.data[0].resumeHeadline);
     });
+
+
   }, [resumeHeadline])
 
 

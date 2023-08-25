@@ -2,16 +2,19 @@ import React, { Fragment } from 'react';
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
+
 const AutocompleteBox = ({ selected, setSelected, query, setQuery, arrayDropDownContent, register, placeHolder, inputFieldName, databaseFieldName }: any) => {
   const filteredItems =
     query === ""
       ? arrayDropDownContent
-      : arrayDropDownContent.filter((items: any) =>
-        items[databaseFieldName]
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      : arrayDropDownContent.filter((items: any) => items[databaseFieldName]
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .includes(query.toLowerCase().replace(/\s+/g, ""))
       );
+  const handleChange = (value: string) => {
+    setQuery(value);
+  }
 
   return (
     <Combobox value={selected} onChange={setSelected}>
@@ -21,7 +24,7 @@ const AutocompleteBox = ({ selected, setSelected, query, setQuery, arrayDropDown
             className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
             displayValue={(items: any) => items[databaseFieldName]}
             placeholder={placeHolder}
-            onChange={(event) => setQuery(event.target.value)}
+            onKeyUp={(event) => handleChange(event.currentTarget.value)}
             {...register(inputFieldName)}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -36,7 +39,7 @@ const AutocompleteBox = ({ selected, setSelected, query, setQuery, arrayDropDown
           leave="transition ease-in duration-100"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-          afterLeave={() => setQuery("")}
+        // afterLeave={() => setQuery("")}
         >
           <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {filteredItems.length === 0 && query !== "" ? (
