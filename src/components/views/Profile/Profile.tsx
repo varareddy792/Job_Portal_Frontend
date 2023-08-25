@@ -58,7 +58,7 @@ export default function Profile() {
         <div className="grid grid-cols-4 mt-5">
           <div>
             {/* card */}
-            <div className="mr-5 rounded-lg border bg-white p-5">
+            <div className="mr-5 rounded-lg border bg-white p-5 sticky top-[13%]">
               <h1 className="font-semibold mb-1">Quick links</h1>
               <button className="text-sm mt-3 px-3 py-1.5 hover:bg-gray-200 hover:text-black hover:font-semibold w-full rounded-2xl flex justify-between">
                 <span>Resume</span>
