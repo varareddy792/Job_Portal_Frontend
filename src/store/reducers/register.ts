@@ -72,6 +72,14 @@ const registerSlice = createSlice({
             state.errorMessage = action.error.message;
         });
     },
-    reducers: {}
+    reducers: {
+        clearRegisterSlice: (state) => {
+            state.loading = false;
+            state.error = false;
+            state.success = false;
+            return state;
+        },
+    }
 });
 export default registerSlice.reducer;
+export const { clearRegisterSlice } = registerSlice.actions;

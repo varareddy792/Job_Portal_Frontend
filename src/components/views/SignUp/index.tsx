@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { registerUser } from '../../../store/reducers/register';
+import { registerUser, clearRegisterSlice } from '../../../store/reducers/register';
 import { useAppDispatch } from '../../../';
 import { useAppSelector } from '../../../';
 import { googleAuthSignUp } from '../../../store/reducers/googleAuth';
@@ -32,7 +32,6 @@ const SignUpSchema = yup
         mobileNumber: yup.string()
             .required('Mobile number is required')
             .matches(/^[0-9]{10}$/, 'Mobile number must be a valid 10-digit number'),
-
     })
     .required();
 
@@ -51,8 +50,9 @@ const SignUp = () => {
     useEffect(() => {
         if (success) {
             navigate('/homePage');
+            dispatch(clearRegisterSlice());
         }
-    }, [success, navigate])
+    }, [success, navigate, dispatch])
 
     const onSubmit = (data: IFormInputs) => {
         dispatch(registerUser({
