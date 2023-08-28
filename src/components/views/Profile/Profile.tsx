@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiEdit2 } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
@@ -8,10 +8,23 @@ import { BsBriefcase, BsCalendar4 } from "react-icons/bs";
 import Education from './Education';
 import ResumeHeadline from './ResumeHeadline/ResumeHeadline';
 import KeySkills from './KeySkills/KeySkills';
-import ProfileSummary from './ProfileSummary';
+import ProfileSummary from './ProfileSummary/ProfileSummary';
 import ResumeUpload from './ResumeUpload/ResumeUpload';
+import { useAppDispatch, useAppSelector } from '../../../';
+import { profileDashboardGet, clearGetProfileDashboardSlice } from '../../../store/reducers/jobSeekerProfile/ProfileDashboardGet';
 
-export default function Profile() {
+const Profile = () => {
+  const dispatch = useAppDispatch();
+  const { success, profileDashboard } = useAppSelector((state) => state.getProfileDashboard);
+  useEffect(() => {
+    dispatch(profileDashboardGet());
+  }, [dispatch]);
+  useEffect(() => {
+    if (success) {
+      dispatch(clearGetProfileDashboardSlice());
+    }
+  }, [dispatch, success]);
+
   return (
     <div className="bg-zinc-100 font-sans">
       <div className="px-40 py-10 flex justify-center flex-col">
@@ -120,7 +133,10 @@ export default function Profile() {
             <KeySkills />
             {/* card */}
             <Education />
-            <ProfileSummary />
+            <ProfileSummary
+              id={profileDashboard[0]?.id}
+              profileSummary={profileDashboard[0]?.profileSummary}
+            />
             {/* card */}
             <div className="w-full rounded-2xl bg-white p-4 mt-5">
               <div className="flex items-center justify-between mb-4">
@@ -135,3 +151,5 @@ export default function Profile() {
     </div>
   )
 }
+
+export default Profile;

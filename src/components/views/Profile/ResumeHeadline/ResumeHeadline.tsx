@@ -21,7 +21,7 @@ const ResumeHeadline = () => {
       }
     }
     ).then((response) => {
-      setResumeHeadline(response.data.data[0].resumeHeadline);
+      setResumeHeadline(response.data.data[0]?.resumeHeadline);
     });
 
 
