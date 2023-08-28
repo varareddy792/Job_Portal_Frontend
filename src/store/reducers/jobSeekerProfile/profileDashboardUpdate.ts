@@ -1,44 +1,40 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
-interface User {
-    name: string,
-    password: string,
-    email: string,
-    mobileNumber: string,
-    userType: string,
-    workStatus: boolean
+interface ProfileDashboard {
+    id: any,
+    profileSummary: any
 }
 export interface registerUserState {
     loading: boolean;
     error: boolean;
     success: boolean;
-    user: Array<User>;
+    profileDashboard: Array<ProfileDashboard>;
     errorMessage: string | undefined;
-
 }
+
 const initialState: registerUserState = {
     loading: false,
     error: false,
     success: false,
-    user: [],
+    profileDashboard: [],
     errorMessage: undefined,
 }
 
-export const registerUser = createAsyncThunk(
-    "register", async (data: User) => {
+
+export const profileDashboardUpdate = createAsyncThunk(
+    "profileDashboard", async (data: ProfileDashboard) => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_PATH}/auth/register`,
+            const response = await axios.put(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/profileDashboard`,
+                { data },
                 {
-                    name: data.name,
-                    password: data.password,
-                    email: data.email,
-                    mobileNumber: data.mobileNumber,
-                    userType: data.userType,
-                    workStatus: data.workStatus,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${Cookies.get('token')}`
+                    }
                 }
             );
-
             if (response.status >= 200 && response.status < 300) {
                 return response.data;
             }
@@ -47,29 +43,29 @@ export const registerUser = createAsyncThunk(
         }
     });
 
-const registerSlice = createSlice({
-    name: 'register',
+const updateProfileDashboardSlice = createSlice({
+    name: 'profileDashboard',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(registerUser.pending, (state) => {
+        builder.addCase(profileDashboardUpdate.pending, (state) => {
             state.loading = true;
             state.success = false;
             state.error = false;
         });
-        builder.addCase(registerUser.fulfilled, (state, action: PayloadAction<User[]>) => {
+        builder.addCase(profileDashboardUpdate.fulfilled, (state, action: PayloadAction<ProfileDashboard[]>) => {
             state.loading = false;
             state.success = true;
             state.error = false;
-            state.user = action.payload;
+            state.profileDashboard = action.payload;
         });
-        builder.addCase(registerUser.rejected, (state, action) => {
+        builder.addCase(profileDashboardUpdate.rejected, (state, action) => {
             state.success = false;
             state.loading = false;
             state.error = true;
-            state.user = [];
+            state.profileDashboard = [];
             state.errorMessage = action.error.message;
         });
     },
     reducers: {}
 });
-export default registerSlice.reducer;
+export default updateProfileDashboardSlice.reducer;
