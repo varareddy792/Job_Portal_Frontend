@@ -14,12 +14,12 @@ interface IFormInputs {
   keySkills: string;
 }
 
-const ResumeSchema = yup
-  .object({
-    keySkills: yup.string()
-      .label("Enter your area of Expertise/Specialization").required(),
-  })
-  .required();
+// const ResumeSchema = yup
+//   .object({
+//     keySkills: yup.string()
+//       .label("Enter your area of Expertise/Specialization").required(),
+//   })
+//   .required();
 
 const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch }: any) => {
 
@@ -34,21 +34,25 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch 
     handleSubmit,
     formState: { errors }
   } = useForm<IFormInputs>({
-    resolver: yupResolver(ResumeSchema)
+    //resolver: yupResolver(ResumeSchema)
   });
 
   // OnSubmit button
   const onSubmit = (data: IFormInputs) => {
     if (!isInArray(data.keySkills, keySkillFetch)) {
-      const keySkillsVar = [...keySkillFetch, data.keySkills]
+      if (data.keySkills !== '') {
+        const keySkillsVar = [...keySkillFetch, data.keySkills];
+        setKeySkillFetch([...keySkillFetch, data.keySkills]);
+      }
       dispatch(keySkillsUpdate({
-        keySkills: keySkillsVar.toString(),
+        keySkills: keySkillFetch.toString(),
 
       }));
-      setKeySkillFetch([...keySkillFetch, data.keySkills]);
+
     } else {
       setIsAddDeleted({ state: "1", message: "Already added!!", color: "red" });
     }
+
   };
 
   // Check the item in array
@@ -62,33 +66,36 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch 
       var filteredData = keySkillFetch?.filter(function (filterItem: any) {
         return filterItem !== item
       })
-      axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/keySkills/`, {
-        keySkills: filteredData.toString(),
-      }, {
-        headers: {
-          'Authorization': `Bearer ${Cookies.get('token')}`
-        }
-      }
-      ).then((response) => {
-        console.log(response);
-        setIsAddDeleted({ state: response.status.toString(), message: "Deleted!!", color: 'red' });
-        setKeySkillFetch(filteredData);
-      });
+      // axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/keySkills/`, {
+      //   keySkills: filteredData.toString(),
+      // }, {
+      //   headers: {
+      //     'Authorization': `Bearer ${Cookies.get('token')}`
+      //   }
+      // }
+      // ).then((response) => {
+      //   console.log(response);
+      //   setIsAddDeleted({ state: response.status.toString(), message: "Deleted!!", color: 'red' });
+
+      // });
+      setKeySkillFetch(filteredData);
     }
     if (action === 'Add') {
       if (!isInArray(item, keySkillFetch)) {
+
         filteredData = [...keySkillFetch, item];
-        axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/keySkills/`, {
-          keySkills: filteredData.toString(),
-        }, {
-          headers: {
-            'Authorization': `Bearer ${Cookies.get('token')}`
-          }
-        }
-        ).then((response) => {
-          setIsAddDeleted({ state: response.status.toString(), message: "Added!!", color: "green" });
-          setKeySkillFetch(filteredData);
-        });
+        // axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/keySkills/`, {
+        //   keySkills: filteredData.toString(),
+        // }, {
+        //   headers: {
+        //     'Authorization': `Bearer ${Cookies.get('token')}`
+        //   }
+        // }
+        // ).then((response) => {
+        //   setIsAddDeleted({ state: response.status.toString(), message: "Added!!", color: "green" });
+        //   setKeySkillFetch(filteredData);
+        // });
+        setKeySkillFetch(filteredData);
       } else {
         setIsAddDeleted({ state: "1", message: "Already added!!", color: "red" });
       }
