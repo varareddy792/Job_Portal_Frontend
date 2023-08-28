@@ -22,6 +22,9 @@ const ProfileSummary = ({ id, profileSummary }: any) => {
     const openModal = () => {
         setIsOpen(true);
     };
+    const closeDialog = () => {
+        setIsOpen(false);
+    };
 
     return (
         <div className="w-full rounded-2xl bg-white p-4 mt-5" >
@@ -30,13 +33,13 @@ const ProfileSummary = ({ id, profileSummary }: any) => {
                 <h1 className="text-blue-600 font-medium cursor-pointer" onClick={openModal}>Add profile summary</h1>
             </div>
             <span className="text-sm text-gray-500">
-                {profileSummary === "" || null ? testSummary : profileSummary}
+                {!profileSummary && testSummary}
+                {profileSummary}
             </span>
             <Modal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                modalTitle={"Profile summary"}
-                modalBody={<ProfileSummaryForm testSummary={testSummary} id={id} defaultProfileSummary={profileSummary} />}
+                modalBody={<ProfileSummaryForm testSummary={testSummary} id={id} defaultProfileSummary={profileSummary} closeDialog={closeDialog} />}
             />
         </div>
     )

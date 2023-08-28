@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../../../';
 import { profileDashboardUpdate } from '../../../../store/reducers/jobSeekerProfile/profileDashboardUpdate';
 
 interface IFormInputs {
-    profileSummary: string
+    profileSummary: string | null
 }
 
 const SignUpSchema = yup
@@ -20,16 +20,17 @@ const SignUpSchema = yup
                     return true
                 }
             }
-        ),
+        ).nullable(),
     })
     .required();
 
-const ProfileSummaryForm = ({ testSummary, id, defaultProfileSummary }: any) => {
+const ProfileSummaryForm = ({ testSummary, id, defaultProfileSummary, closeDialog }: any) => {
     const dispatch = useAppDispatch();
     const {
         register,
         handleSubmit,
         setValue,
+        watch,
         formState: { errors }
     } = useForm<IFormInputs>({
         resolver: yupResolver(SignUpSchema)
@@ -43,8 +44,20 @@ const ProfileSummaryForm = ({ testSummary, id, defaultProfileSummary }: any) => 
         dispatch(profileDashboardUpdate({ id, profileSummary: data.profileSummary }));
     }
 
+    const handleDelete = () => {
+        dispatch(profileDashboardUpdate({ id, profileSummary: null }));
+    }
+
+    const watchProfileSummary = watch('profileSummary')?.length;
+
     return (
-        <div className="flex flex-col my-5">
+        <div className="flex flex-col">
+            <div className="flex items-center justify-between mb-3">
+                <h1 className="text-lg font-medium text-gray-900">Profile summary</h1>
+                <div>
+                    {defaultProfileSummary && <button className="text-blue-700 font-semibold hover:underline" onClick={handleDelete}>Delete</button>}
+                </div>
+            </div>
             <span className="text-sm text-gray-500 mb-3">
                 {testSummary}
             </span>
@@ -56,7 +69,25 @@ const ProfileSummaryForm = ({ testSummary, id, defaultProfileSummary }: any) => 
                         rows={4}
                     ></textarea>
                     {errors.profileSummary && <p className="font-normal text-xs text-red-500 absolute">{errors.profileSummary.message}</p>}
-                    <div className="text-xs font-light text-gray-600 text-right">1000 character(s) left</div>
+                    <div className="text-xs font-light text-gray-600 text-right">{watchProfileSummary && 1000 - watchProfileSummary} character(s) left</div>
+                </div>
+                <div className="mt-5 flex justify-end items-center">
+                    <div>
+                        <button
+                            type="button"
+                            className="mr-3"
+                            onClick={closeDialog}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            form='my-form' type="submit"
+                            className={watchProfileSummary === 0 || watch('profileSummary') === null ? "rounded-3xl bg-blue-100 text-white px-5 py-1.5" : "rounded-3xl bg-blue-500 text-white px-5 py-1.5"}
+                            disabled={watchProfileSummary === 0 || watch('profileSummary') === null}
+                        >
+                            Save
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
