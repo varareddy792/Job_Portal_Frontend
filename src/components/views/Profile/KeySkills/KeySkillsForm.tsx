@@ -14,14 +14,7 @@ interface IFormInputs {
   keySkills: string;
 }
 
-// const ResumeSchema = yup
-//   .object({
-//     keySkills: yup.string()
-//       .label("Enter your area of Expertise/Specialization").required(),
-//   })
-//   .required();
-
-const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch }: any) => {
+const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch, setIsOpen }: any) => {
 
   const dispatch = useAppDispatch();
   const [skill, setSkill] = useState({})
@@ -34,7 +27,6 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch 
     handleSubmit,
     formState: { errors }
   } = useForm<IFormInputs>({
-    //resolver: yupResolver(ResumeSchema)
   });
 
   // OnSubmit button
@@ -48,11 +40,9 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch 
         keySkills: keySkillFetch.toString(),
 
       }));
-
     } else {
       setIsAddDeleted({ state: "1", message: "Already added!!", color: "red" });
     }
-
   };
 
   // Check the item in array
@@ -66,35 +56,13 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch 
       var filteredData = keySkillFetch?.filter(function (filterItem: any) {
         return filterItem !== item
       })
-      // axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/keySkills/`, {
-      //   keySkills: filteredData.toString(),
-      // }, {
-      //   headers: {
-      //     'Authorization': `Bearer ${Cookies.get('token')}`
-      //   }
-      // }
-      // ).then((response) => {
-      //   console.log(response);
-      //   setIsAddDeleted({ state: response.status.toString(), message: "Deleted!!", color: 'red' });
 
-      // });
       setKeySkillFetch(filteredData);
     }
     if (action === 'Add') {
       if (!isInArray(item, keySkillFetch)) {
 
         filteredData = [...keySkillFetch, item];
-        // axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/keySkills/`, {
-        //   keySkills: filteredData.toString(),
-        // }, {
-        //   headers: {
-        //     'Authorization': `Bearer ${Cookies.get('token')}`
-        //   }
-        // }
-        // ).then((response) => {
-        //   setIsAddDeleted({ state: response.status.toString(), message: "Added!!", color: "green" });
-        //   setKeySkillFetch(filteredData);
-        // });
         setKeySkillFetch(filteredData);
       } else {
         setIsAddDeleted({ state: "1", message: "Already added!!", color: "red" });
@@ -109,11 +77,15 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch 
   }, [isAddDelete]);
 
   return (
-    <div className="h-full w-10/12">
-      <div className="col-start-2 col-end-4">
-        <h1 className=" text-xs mb-5 col-start-1 col-end-5"> Tell recruiters what you know or what you are known for e.g. Direct Marketing, Oracle, Java etc. We will send you job recommendations based on these skills. each skill is separated by a comma.
+    <div className="h-full">
+      <div className="flex items-center justify-between mb-3">
+        <h1 className="text-lg font-medium text-gray-900">Key skills
         </h1>
-        <h2 className=" text-xl mb-5 col-start-1 col-end-5"> Skills</h2>
+      </div>
+      <div className="col-start-2 col-end-4">
+        <h1 className="text-sm text-gray-500 mb-3"> Tell recruiters what you know or what you are known for e.g. Direct Marketing, Oracle, Java etc. We will send you job recommendations based on these skills. each skill is separated by a comma.
+        </h1>
+        <h2 className=" text-lg mb-5 col-start-1 col-end-5"> Skills</h2>
         {isAddDelete.state && <p className={`font-normal text-xs text-${isAddDelete.color}-500`}> {isAddDelete.message}</p>}
         <div className="flex flex-wrap">
           {keySkillFetch && keySkillFetch?.map((item: any, key: number) =>
@@ -121,7 +93,7 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch 
           )}
         </div>
         <div className="col-start-1 col-end-4">
-          <form id="my-form" onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <AutocompleteBox
                 selected={selected}
@@ -136,18 +108,24 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch 
               {errors.keySkills && <p className="font-normal text-xs text-red-500">{errors.keySkills.message}</p>}
               {success && <p className="font-normal text-xs text-green-500"> Area of Expertise / Specialization added successfully</p>}
             </div>
-          </form>
-          <div className="mt-10 mb-10">
-            <h2>Or you can select from the suggested set of skills</h2>
-            <div className="flex flex-wrap mt-5">
-              {keySkill && keySkill.filter((items: any) => items.title?.toLowerCase()
-                .replace(/\s+/g, "")
-                .includes(query.toLowerCase().replace(/\s+/g, ""))
-              ).slice(0, 5)?.map((item: any, key: number) =>
-                <div key={key} className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5 cursor-pointer" onClick={() => handleAddDelete('Add', item.title)} >{item.title}</div>
-              )}
+
+
+            <div className="mt-10 mb-10 text-sm text-gray-500 mb-3">
+              <h2>Or you can select from the suggested set of skills</h2>
+              <div className="flex flex-wrap mt-5">
+                {keySkill && keySkill.filter((items: any) => items.title?.toLowerCase()
+                  .replace(/\s+/g, "")
+                  .includes(query.toLowerCase().replace(/\s+/g, ""))
+                ).slice(0, 5)?.map((item: any, key: number) =>
+                  <div key={key} className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5 cursor-pointer" onClick={() => handleAddDelete('Add', item.title)} >{item.title}</div>
+                )}
+              </div>
             </div>
-          </div>
+            <div className='float-right'>
+              <button type="button" onClick={() => setIsOpen(false)} className="mr-3">Cancel</button>
+              <button type="submit" className="rounded-3xl bg-blue-600 text-white px-5 py-1.5">Save</button>
+            </div>
+          </form>
         </div>
         <div>
         </div>

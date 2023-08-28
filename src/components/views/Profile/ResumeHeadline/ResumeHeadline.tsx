@@ -28,10 +28,11 @@ const ResumeHeadline = () => {
   }, [resumeHeadline])
 
 
-  const modalBody = <ResumeHeadlineForm resumeHeadline={resumeHeadline} setResumeHeadline={setResumeHeadline} />;
+  const modalBody = <ResumeHeadlineForm resumeHeadline={resumeHeadline} setResumeHeadline={setResumeHeadline} setIsOpen={setIsOpen} />;
 
   return (
     <div className="w-full rounded-2xl bg-white p-4 mt-5">
+
       <div className="flex items-center mb-4">
         <h1>Resume headline</h1><span className="ml-2 text-gray-400 hover:scale-125 cursor-pointer">
           <FiEdit2 onClick={() => setIsOpen(true)} /> </span>
@@ -42,7 +43,7 @@ const ResumeHeadline = () => {
       <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        modalTitle={modalTitle}
+
         modalBody={modalBody}
       />
     </div>

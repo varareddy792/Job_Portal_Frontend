@@ -21,7 +21,7 @@ const AutocompleteBox = ({ selected, setSelected, query, setQuery, arrayDropDown
       <div className="relative mt-1">
         <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Input
-            className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+            className="block p-2.5 w-full text-sm text-black bg-gray-50 rounded-lg border border-gray-300 focus:border-blue-500 outline-none"
             displayValue={(items: any) => items[databaseFieldName]}
             placeholder={placeHolder}
             onKeyUp={(event) => handleChange(event.currentTarget.value)}
