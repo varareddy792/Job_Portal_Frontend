@@ -56,7 +56,7 @@ const Modal = ({ modalTitle, modalBody, isOpen, setIsOpen }: any) => {
                       Cancel
                     </button>
                     <button
-                      type="button"
+                      form='my-form' type="submit"
                       className="rounded-3xl bg-blue-500 text-white px-5 py-1.5"
                     >
                       Save
