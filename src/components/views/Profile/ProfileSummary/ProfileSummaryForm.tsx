@@ -69,7 +69,7 @@ const ProfileSummaryForm = ({ testSummary, id, defaultProfileSummary, closeDialo
                         rows={4}
                     ></textarea>
                     {errors.profileSummary && <p className="font-normal text-xs text-red-500 absolute">{errors.profileSummary.message}</p>}
-                    <div className="text-xs font-light text-gray-600 text-right">{watchProfileSummary && 1000 - watchProfileSummary} character(s) left</div>
+                    <div className="text-xs font-light text-gray-600 text-right">{watchProfileSummary ? 1000 - watchProfileSummary : 1000} character(s) left</div>
                 </div>
                 <div className="mt-5 flex justify-end items-center">
                     <div>
