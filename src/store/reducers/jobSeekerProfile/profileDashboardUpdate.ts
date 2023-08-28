@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 interface ProfileDashboard {
     id: number,
-    profileSummary: string
+    profileSummary: string | null
 }
 export interface registerUserState {
     loading: boolean;

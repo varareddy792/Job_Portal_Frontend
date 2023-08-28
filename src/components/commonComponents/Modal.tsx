@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { RxCross1 } from 'react-icons/rx';
 
-const Modal = ({ modalTitle, modalBody, isOpen, setIsOpen }: any) => {
+const Modal = ({ modalBody, isOpen, setIsOpen }: any) => {
   const closeDialog = () => {
     setIsOpen(false);
   };
@@ -33,8 +33,7 @@ const Modal = ({ modalTitle, modalBody, isOpen, setIsOpen }: any) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <Dialog.Title className="text-lg font-medium leading-6 text-gray-900 flex justify-between items-center">
-                  <h1>{modalTitle}</h1>
+                <Dialog.Title className="text-lg font-medium text-gray-900 text-right">
                   <button
                     onClick={closeDialog}
                     type="button"
@@ -43,25 +42,8 @@ const Modal = ({ modalTitle, modalBody, isOpen, setIsOpen }: any) => {
                     <RxCross1 />
                   </button>
                 </Dialog.Title>
-                <div className="mt-2">
+                <div>
                   {modalBody}
-                </div>
-                <div className="mt-2 flex justify-end items-center">
-                  <div>
-                    <button
-                      type="button"
-                      className="mr-3"
-                      onClick={closeDialog}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      form='my-form' type="submit"
-                      className="rounded-3xl bg-blue-500 text-white px-5 py-1.5"
-                    >
-                      Save
-                    </button>
-                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
