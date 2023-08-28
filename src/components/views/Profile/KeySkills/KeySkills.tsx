@@ -21,7 +21,8 @@ const KeySkills = () => {
       }
     }
     ).then((response) => {
-      setKeySkillFetch(response.data.data[0]?.keySkills.split(","));
+      if (response.data.data[0]?.keySkills)
+        setKeySkillFetch(response.data.data[0]?.keySkills.split(","));
     });
   }, []);
   const modalBody = <KeySkillsForm
