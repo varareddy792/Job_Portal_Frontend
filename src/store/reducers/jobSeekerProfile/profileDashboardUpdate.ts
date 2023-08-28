@@ -3,8 +3,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 interface ProfileDashboard {
-    id: any,
-    profileSummary: any
+    id: number,
+    profileSummary: string
 }
 export interface registerUserState {
     loading: boolean;
@@ -27,10 +27,9 @@ export const profileDashboardUpdate = createAsyncThunk(
     "profileDashboard", async (data: ProfileDashboard) => {
         try {
             const response = await axios.put(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/profileDashboard`,
-                { data },
+                data,
                 {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${Cookies.get('token')}`
                     }
                 }
@@ -66,6 +65,14 @@ const updateProfileDashboardSlice = createSlice({
             state.errorMessage = action.error.message;
         });
     },
-    reducers: {}
+    reducers: {
+        clearUpdateProfileDashboardSlice: (state) => {
+            state.loading = false;
+            state.error = false;
+            state.success = false;
+            return state;
+        },
+    }
 });
 export default updateProfileDashboardSlice.reducer;
+export const { clearUpdateProfileDashboardSlice } = updateProfileDashboardSlice.actions;

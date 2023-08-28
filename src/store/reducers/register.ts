@@ -25,6 +25,8 @@ const initialState: registerUserState = {
     errorMessage: undefined,
 }
 
+
+
 export const registerUser = createAsyncThunk(
     "register", async (data: User) => {
         try {

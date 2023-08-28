@@ -6,16 +6,16 @@ import { MdVerified } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 import { BsBriefcase, BsCalendar4 } from "react-icons/bs";
 import Education from './Education';
-import ProfileSummary from './ProfileSummary';
+import ResumeHeadline from './ResumeHeadline/ResumeHeadline';
+import KeySkills from './KeySkills/KeySkills';
+import ProfileSummary from './ProfileSummary/ProfileSummary';
 import ResumeUpload from './ResumeUpload/ResumeUpload';
-import { useAppDispatch } from '../../../';
-import { useAppSelector } from '../../../';
+import { useAppDispatch, useAppSelector } from '../../../';
 import { profileDashboardGet, clearGetProfileDashboardSlice } from '../../../store/reducers/jobSeekerProfile/ProfileDashboardGet';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
   const { success, profileDashboard } = useAppSelector((state) => state.getProfileDashboard);
-  console.log(profileDashboard);
   useEffect(() => {
     dispatch(profileDashboardGet());
   }, [dispatch]);
@@ -128,39 +128,14 @@ const Profile = () => {
             </div> */}
 
             {/* card */}
-            <div className="w-full rounded-2xl bg-white p-4 mt-5">
-              <div className="flex items-center mb-4">
-                <h1>Resume headline</h1><span className="ml-2 text-gray-400 hover:scale-125 cursor-pointer"> <FiEdit2 /> </span>
-              </div>
-              <p className="mb-4 text-sm text-gray-500">
-                Looking for a challenge assignment where I can prove my ability ,working knowledge solving through my sincerity ,dedication & my hard work that would give me an opportunity to grow my self in the organization.
-              </p>
-            </div>
+            <ResumeHeadline />
             {/* card */}
-            <div className="w-full rounded-2xl bg-white p-4 mt-5">
-              <div className="flex items-center mb-2">
-                <h1>Key skills</h1><span className="ml-2 text-gray-400 hover:scale-125 cursor-pointer"> <FiEdit2 /> </span>
-              </div>
-              <div className="flex flex-wrap">
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">React</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">NodeJs</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">React</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">NodeJs</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">React</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">NodeJs</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">React</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">NodeJs</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">React</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">NodeJs</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">React</span>
-                <span className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5">NodeJs</span>
-              </div>
-            </div>
+            <KeySkills />
             {/* card */}
             <Education />
             <ProfileSummary
               id={profileDashboard[0]?.id}
-              profileDashboard={profileDashboard[0]?.profileSummary}
+              profileSummary={profileDashboard[0]?.profileSummary}
             />
             {/* card */}
             <div className="w-full rounded-2xl bg-white p-4 mt-5">
