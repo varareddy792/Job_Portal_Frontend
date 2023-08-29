@@ -15,7 +15,7 @@ import { profileDashboardGet, clearGetProfileDashboardSlice } from '../../../sto
 
 const Profile = () => {
   const dispatch = useAppDispatch();
-  const { success, profileDashboard } = useAppSelector((state) => state.getProfileDashboard);
+  const { success } = useAppSelector((state) => state.getProfileDashboard);
   useEffect(() => {
     dispatch(profileDashboardGet());
   }, [dispatch]);
@@ -133,10 +133,7 @@ const Profile = () => {
             <KeySkills />
             {/* card */}
             <Education />
-            <ProfileSummary
-              id={profileDashboard[0]?.id}
-              profileSummary={profileDashboard[0]?.profileSummary}
-            />
+            <ProfileSummary />
             {/* card */}
             <div className="w-full rounded-2xl bg-white p-4 mt-5">
               <div className="flex items-center justify-between mb-4">
