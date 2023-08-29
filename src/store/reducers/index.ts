@@ -7,6 +7,8 @@ import keySkillsSlice from './jobSeekerProfile/keySkills';
 import jobSeekerUploadReducer from './jobSeekerProfile/uploadResume';
 import updateProfileDashboardSlice from './jobSeekerProfile/profileDashboardUpdate';
 import getProfileDashboardSlice from './jobSeekerProfile/ProfileDashboardGet';
+import jobSeekerEducation from './jobSeekerProfile/jobSeekerEducation';
+import getEducationDetails from './jobSeekerProfile/getEducationDetails';
 import updateCareerProfileUpdateSlice from './jobSeekerProfile/careerProfileUpdate';
 import getIndustrySlice from './dropdown/industry';
 
@@ -19,5 +21,7 @@ export const reducer = combineReducers({
     getProfileDashboard: getProfileDashboardSlice,
     resumeHeadline: resumeHeadlineSlice,
     keySkills: keySkillsSlice,
+    education: jobSeekerEducation,
+    educationDetails: getEducationDetails,
     getIndustry: getIndustrySlice,
 });
