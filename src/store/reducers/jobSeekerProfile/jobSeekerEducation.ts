@@ -15,7 +15,6 @@ export interface registerUserState {
     loading: boolean;
     error: boolean;
     success: boolean;
-    //profileDashboard: Array<JobSeekerEducation>;
     educationData:[],
     errorMessage: string | undefined;
 }
