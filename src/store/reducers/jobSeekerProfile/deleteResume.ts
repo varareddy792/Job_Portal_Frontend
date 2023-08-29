@@ -40,17 +40,18 @@ const initialState: UploadState = {
   success: false,
   formData: '',
   errorMessage: ''
+
 }
 
-export const resumeUpload = createAsyncThunk(
-  'upload/resumeUpload', async (data: any) => {
+export const resumeDelete = createAsyncThunk(
+  'upload/resumeDelete', async (data:any) => {
     try {
       console.log('token', Cookies.get('token'));
-      const response = await axios.put(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/resume`,
+      const response = await axios.put(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/resumeDelete`,
         data,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${Cookies.get('token')}`
           }
         }
@@ -62,34 +63,35 @@ export const resumeUpload = createAsyncThunk(
   }
 );
 
-const jobSeekerUploadSlice = createSlice({
-  name: 'upload',
+const jobSeekerResumeDeleteSlice = createSlice({
+  name: 'resumeDelete',
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(resumeUpload.pending, (state) => {
+    
+    builder.addCase(resumeDelete.pending, (state) => {
       state.loading = true;
       state.error = false;
       state.errorMessage = '';
       state.success = false;
     });
-    builder.addCase(resumeUpload.fulfilled, (state,action:any) => {
+    builder.addCase(resumeDelete.fulfilled, (state, action: any) => {
       state.loading = false;
       state.error = false;
       state.success = true;
       state.errorMessage = '';
       state.formData = action.payload.data;
     });
-    builder.addCase(resumeUpload.rejected, (state, action) => {
+    builder.addCase(resumeDelete.rejected, (state, action: any) => {
       console.log("action-->", action);
       state.loading = false;
       state.error = true;
       state.errorMessage = action.error.message;
       state.success = false;
-    });
+    })
   }
   ,
   reducers: {
-    clearUploadState: (state) => {
+    clearresumeDeleteState: (state) => {
       state.loading = false;
       state.error = false;
       state.success = false;
@@ -98,5 +100,5 @@ const jobSeekerUploadSlice = createSlice({
   }
 });
 
-export default jobSeekerUploadSlice.reducer;
-export const { clearUploadState }=  jobSeekerUploadSlice.actions ;
+export default jobSeekerResumeDeleteSlice.reducer;
+export const { clearresumeDeleteState }=  jobSeekerResumeDeleteSlice.actions ;
