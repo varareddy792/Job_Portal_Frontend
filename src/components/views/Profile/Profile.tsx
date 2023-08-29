@@ -12,6 +12,7 @@ import ProfileSummary from './ProfileSummary/ProfileSummary';
 import ResumeUpload from './ResumeUpload/ResumeUpload';
 import { useAppDispatch, useAppSelector } from '../../../';
 import { profileDashboardGet, clearGetProfileDashboardSlice } from '../../../store/reducers/jobSeekerProfile/ProfileDashboardGet';
+import CareerProfile from './CareerProfile/CareerProfile';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -138,6 +139,11 @@ const Profile = () => {
               profileSummary={profileDashboard[0]?.profileSummary}
             />
             {/* card */}
+
+            {/* card */}
+            <CareerProfile profileDashboard={profileDashboard} />
+            {/* card */}
+
             <div className="w-full rounded-2xl bg-white p-4 mt-5">
               <div className="flex items-center justify-between mb-4">
                 <h1>Employment</h1>
