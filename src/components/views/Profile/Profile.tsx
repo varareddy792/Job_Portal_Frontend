@@ -15,7 +15,7 @@ import { profileDashboardGet, clearGetProfileDashboardSlice } from '../../../sto
 
 const Profile = () => {
   const dispatch = useAppDispatch();
-  const { success } = useAppSelector((state) => state.getProfileDashboard);
+  const { success, profileDashboard } = useAppSelector((state) => state.getProfileDashboard);
   useEffect(() => {
     dispatch(profileDashboardGet());
   }, [dispatch]);
@@ -98,6 +98,10 @@ const Profile = () => {
               </button>
               <button className="text-sm mt-3 px-3 py-1.5 hover:bg-gray-200 hover:text-black hover:font-semibold w-full rounded-2xl flex justify-between">
                 <span>Profile summary</span>
+                {!profileDashboard[0]?.profileSummary
+                  &&
+                  <span className="text-blue-600 font-semibold">Add</span>
+                }
               </button>
               <button className="text-sm mt-3 px-3 py-1.5 hover:bg-gray-200 hover:text-black hover:font-semibold w-full rounded-2xl flex justify-between">
                 <span>Accomplishments</span>
