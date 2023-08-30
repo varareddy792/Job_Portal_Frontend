@@ -122,6 +122,7 @@ const ResumeUpload = () => {
             <input
               ref={fileInputRef}
               type="file"
+              accept=".pdf,.doc,.docx,.rdf"
               className="hidden"
               onChange={handleFileChange}
             />
