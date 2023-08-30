@@ -12,7 +12,7 @@ const ResumeUpload = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [formDataResponse, setFormDataResponse] = useState<any>('');
   const dispatchUpload = useAppDispatch();
-  const dispatchDelete= useAppDispatch();
+  const dispatchDelete = useAppDispatch();
   const { success, errorMessage, error, formData } = useAppSelector((state) => state.jobSeekerResumeUpload)
   const { success: successDelete, errorMessage: errorMessageDelete, error: errorDelete, formData: formDataDelete } =
     useAppSelector((state) => state.jobSeekerDeleteResume);
@@ -30,13 +30,13 @@ const ResumeUpload = () => {
       alert(`${errorMessage}`);
       dispatchUpload(clearUploadState)
     }
-  }, [success, error, errorMessage, dispatchUpload,formData]);
+  }, [success, error, errorMessage, dispatchUpload, formData]);
 
   useEffect(() => {
     if (successDelete) {
       setFormDataResponse(formDataDelete);
       alert('Resume Deleted successfully uploaded');
-     dispatchDelete(clearresumeDeleteState);
+      dispatchDelete(clearresumeDeleteState);
     }
     if (errorDelete) {
       alert(`${errorMessageDelete}`);
@@ -65,8 +65,8 @@ const ResumeUpload = () => {
     }
   }
 
-  const downloadFile =  async() => {
-    
+  const downloadFile = async () => {
+
     const APL_URL = process.env.REACT_APP_API_PATH;
     try {
       const response = await axios.get(resumeCompletePath, {
@@ -79,7 +79,7 @@ const ResumeUpload = () => {
       link.href = url;
       link.setAttribute('download', formDataResponse.resumeFile); // Replace with the desired filename
       document.body.appendChild(link);
-      link.click(); 
+      link.click();
       document.body.removeChild(link);
     } catch (error) {
       console.error('Error downloading file:', error);
@@ -89,10 +89,11 @@ const ResumeUpload = () => {
   const handleDeleteResume = () => {
     const data = {
       resumeFile: formData.resumeFile,
-      resumePath:formData.resumePath
+      resumePath: formData.resumePath
     }
     dispatchDelete(resumeDelete(data));
   }
+ 
   return (
     <div className="w-full rounded-2xl bg-white p-4">
       <h1 className="mb-4">Resume</h1>
@@ -126,7 +127,7 @@ const ResumeUpload = () => {
               className="hidden"
               onChange={handleFileChange}
             />
-            Upload resume
+            {resumeFile ? "Update Resume" : "Upload Resume"}
           </label>
           <span className=" text-gray-400">Supported Formats: doc, docx, rtf, pdf, upto 2 MB</span>
         </div>
