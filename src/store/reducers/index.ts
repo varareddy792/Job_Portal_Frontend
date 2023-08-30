@@ -9,15 +9,19 @@ import updateProfileDashboardSlice from './jobSeekerProfile/profileDashboardUpda
 import getProfileDashboardSlice from './jobSeekerProfile/ProfileDashboardGet';
 import jobSeekerEducation from './jobSeekerProfile/jobSeekerEducation';
 import getEducationDetails from './jobSeekerProfile/getEducationDetails';
+import updateCareerProfileUpdateSlice from './jobSeekerProfile/careerProfileUpdate';
+import getIndustrySlice from './dropdown/industry';
 
 export const reducer = combineReducers({
     // Register
     register: registerSlice,
     jobSeekerResumeUpload: jobSeekerUploadReducer,
     updateProfileDashboard: updateProfileDashboardSlice,
+    updateCareerProfile: updateCareerProfileUpdateSlice,
     getProfileDashboard: getProfileDashboardSlice,
     resumeHeadline: resumeHeadlineSlice,
     keySkills: keySkillsSlice,
     education: jobSeekerEducation,
-    educationDetails: getEducationDetails
+    educationDetails: getEducationDetails,
+    getIndustry: getIndustrySlice,
 });

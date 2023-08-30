@@ -30,6 +30,7 @@ const KeySkills = () => {
     setKeySkill={setKeySkill}
     keySkillFetch={keySkillFetch}
     setKeySkillFetch={setKeySkillFetch}
+    setIsOpen={setIsOpen}
   />;
 
   return (
@@ -46,7 +47,6 @@ const KeySkills = () => {
       <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        modalTitle={modalTitle}
         modalBody={modalBody}
       />
     </div>
