@@ -5,7 +5,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { MdVerified } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 import { BsBriefcase, BsCalendar4 } from "react-icons/bs";
-import Education from './Education';
+import Education from './Education/Education';
 import ResumeHeadline from './ResumeHeadline/ResumeHeadline';
 import KeySkills from './KeySkills/KeySkills';
 import ProfileSummary from './ProfileSummary/ProfileSummary';

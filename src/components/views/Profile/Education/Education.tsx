@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
-import Modal from '../../commonComponents/Modal';
+import Modal from '../../../commonComponents/Modal';
 import EducationForm from './EducationForm';
-import { useAppDispatch, useAppSelector } from '../../..';
-import { profileDashboardGet } from '../../../store/reducers/jobSeekerProfile/ProfileDashboardGet';
-import { clearJobSeekerEducationAddSlice } from '../../../store/reducers/jobSeekerProfile/jobSeekerEducation';
-import { educationDetailsGet } from '../../../store/reducers/jobSeekerProfile/getEducationDetails';
+import { useAppDispatch, useAppSelector } from '../../../..';
+import { profileDashboardGet } from '../../../../store/reducers/jobSeekerProfile/ProfileDashboardGet';
+import { clearJobSeekerEducationAddSlice } from '../../../../store/reducers/jobSeekerProfile/jobSeekerEducation';
+import { educationDetailsGet } from '../../../../store/reducers/jobSeekerProfile/getEducationDetails';
 import { FiEdit2 } from 'react-icons/fi';
 
 export default function Education() {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedEducation, setSelectedEducation] = useState();
+  const [isEdit, setIsEdit] = useState(false);
+
   const { success, educationData } = useAppSelector((state) => state.education);
   const { educationDetails } = useAppSelector((state) => state.educationDetails);
 
@@ -29,6 +32,8 @@ export default function Education() {
   
   const openModal = () => {
     setIsOpen(true);
+    setSelectedEducation({} as any)
+    setIsEdit(false)
   };
 
   const closeDialog = () => {
@@ -50,10 +55,14 @@ export default function Education() {
                 <span className="text-sm text-gray-600 font-bold">{item?.education}</span>
               </h1>
               <span className="ml-2 text-gray-400 hover:scale-125 cursor-pointer">
-                <FiEdit2 onClick={() => setIsOpen(true)} />
+                  <FiEdit2 onClick={() => {
+                    setIsOpen(true)    
+                    setIsEdit(true)
+                    setSelectedEducation(item as any) 
+                  }} />
               </span>
             </div>
-            <span className="text-sm text-gray-500">{item?.specialization}</span><br />
+              {item?.specialization && (<><span className="text-sm text-gray-500">{item?.specialization}</span><br /></>)}
             <span className="text-sm text-gray-500">{item?.passingYear}</span>
           </div>
           ))
@@ -67,6 +76,8 @@ export default function Education() {
           <EducationForm
             closeDialog={closeDialog}
             educationDetails={educationDetails}
+            selectedEducation={selectedEducation}
+            isEdit={isEdit}
           />
         }
       />
