@@ -83,7 +83,6 @@ export default function ({ closeDialog, educationDetails, selectedEducation, isE
 
   // OnSubmit button
   const onSubmit = () => {
-    console.log("form data-->", educationData);
     let data = [];
     data.push({
       jobSeekerProfile: id,
