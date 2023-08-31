@@ -10,6 +10,7 @@ import ResumeHeadline from './ResumeHeadline/ResumeHeadline';
 import KeySkills from './KeySkills/KeySkills';
 import ProfileSummary from './ProfileSummary/ProfileSummary';
 import ResumeUpload from './ResumeUpload/ResumeUpload';
+import PersonalDetails from './PersonalDetails/PersonalDetails';
 import { useAppDispatch, useAppSelector } from '../../../';
 import { profileDashboardGet, clearGetProfileDashboardSlice } from '../../../store/reducers/jobSeekerProfile/ProfileDashboardGet';
 import CareerProfile from './CareerProfile/CareerProfile';
@@ -139,6 +140,7 @@ const Profile = () => {
             {/* card */}
             <Education />
             <ProfileSummary />
+            <PersonalDetails />
             {/* card */}
 
             {/* card */}
