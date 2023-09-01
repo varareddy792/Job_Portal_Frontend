@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 
 
 interface ProfileDashboard {
+    profilePictureFile: any;
+    profilePicturePath: any;
     id: number,
     profileSummary: string,
 }
@@ -52,6 +54,7 @@ const getProfileDashboardSlice = createSlice({
             state.error = false;
         });
         builder.addCase(profileDashboardGet.fulfilled, (state, action: PayloadAction<ProfileDashboard[]>) => {
+            console.log('action ',action.payload)
             state.loading = false;
             state.success = true;
             state.error = false;

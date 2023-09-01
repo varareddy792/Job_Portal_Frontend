@@ -12,6 +12,8 @@ import getEducationDetails from './jobSeekerProfile/getEducationDetails';
 import updateCareerProfileUpdateSlice from './jobSeekerProfile/careerProfileUpdate';
 import getIndustrySlice from './dropdown/industry';
 import jobSeekerDeleteResumeReducer from './jobSeekerProfile/deleteResume'
+import jobSeekerPictureUploadSlice from './jobSeekerProfile/uploadProfilePicture';
+import jobSeekerDeleteProfilePictureReducer from './jobSeekerProfile/deleteProfilePicture';
 
 export const reducer = combineReducers({
     // Register
@@ -25,5 +27,7 @@ export const reducer = combineReducers({
     education: jobSeekerEducation,
     educationDetails: getEducationDetails,
     getIndustry: getIndustrySlice,
-    jobSeekerDeleteResume:jobSeekerDeleteResumeReducer
+    jobSeekerDeleteResume: jobSeekerDeleteResumeReducer,
+    jobSeekerUploadProfilePicture: jobSeekerPictureUploadSlice,
+    jobSeekerDeleteProfilePicture: jobSeekerDeleteProfilePictureReducer
 });
