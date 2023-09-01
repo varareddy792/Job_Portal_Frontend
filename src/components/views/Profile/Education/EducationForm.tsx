@@ -76,9 +76,13 @@ export default function ({ closeDialog, educationDetails, selectedEducation, isE
   }, [])
 
   const handleChange = (event: any) => {
-    const { name, value } = event.target;
-    console.log("name and value-->", name, value);
-    setEducationData({ ...educationData, [name]: value as any })
+    const { name, value, id, checked  } = event.target;
+    console.log("name and value-->", event, id, checked, name, value);
+    if (name === "courseType") {
+      setEducationData({ ...educationData, ['courseType']: id as any })
+    } else {
+      setEducationData({ ...educationData, [name]: value as any }) 
+    }
   }
 
   // OnSubmit button
@@ -144,15 +148,15 @@ export default function ({ closeDialog, educationDetails, selectedEducation, isE
           <label htmlFor="courseType" className="block text-sm font-medium leading-6 text-gray-900">Course Type</label>
           <div className="mt-2 flex justify-between items-center">
             <div className="flex items-center">
-              <input onChange={handleChange} id="fullTime" name="courseType" type="radio" className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 mr-1" />
+              <input onChange={handleChange} defaultChecked={selectedEducation && selectedEducation?.courseType === "fullTime"} id="fullTime" name="courseType" type="radio" className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 mr-1" />
               <label htmlFor="fullTime" className="text-sm font-medium leading-6 text-gray-900">Full Time</label>
             </div>
             <div className="flex items-center">
-              <input onChange={handleChange} id="partTime" name="courseType" type="radio" className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 mr-1" />
+              <input onChange={handleChange} defaultChecked={selectedEducation && selectedEducation?.courseType === "partTime"} id="partTime" name="courseType" type="radio" className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 mr-1" />
               <label htmlFor="partTime" className="text-sm font-medium leading-6 text-gray-900">Part Time</label>
             </div>
             <div className="flex items-center">
-              <input onChange={handleChange} id="distance" name="courseType" type="radio" className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 mr-1" />
+              <input onChange={handleChange} defaultChecked={selectedEducation && selectedEducation?.courseType === "distance"} id="distance" name="courseType" type="radio" className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 mr-1" />
               <label htmlFor="distance" className="text-sm font-medium leading-6 text-gray-900">Distance</label>
             </div>
           </div>
