@@ -1,53 +1,75 @@
+import { useState, useEffect } from 'react';
+import Modal from '../../../commonComponents/Modal';
+import ResumeHeadlineForm from './ResumeHeadlineForm';
+import { useAppSelector, useAppDispatch } from '../../../../';
+import { profileDashboardGet } from '../../../../store/reducers/jobSeekerProfile/ProfileDashboardGet';
 import { FiEdit2 } from "react-icons/fi";
-import Modal from "../../../commonComponents/Modal";
-import { useEffect, useState } from "react";
-import ResumeHeadlineForm from "./ResumeHeadlineForm";
-import axios from "axios";
-import Cookies from "js-cookie";
+import { clearUpdateResumeHeadlineSlice } from '../../../../store/reducers/jobSeekerProfile/profileResumeHeadline';
 
 const ResumeHeadline = () => {
-  const modalTitle = 'Resume headline';
+  const dispatch = useAppDispatch();
+  const { profileDashboard } = useAppSelector((state) => state.getProfileDashboard);
+  const { success } = useAppSelector((state) => state.updateResumeHeadline);
+  const [isOpen, setIsOpen] = useState(false);
+  const resumeHeadlineSummery = "It is the first thing recruiters notice in your profile. Write concisely what makes you unique and right person for the job you are looking for.";
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [resumeHeadline, setResumeHeadline] = useState();
   useEffect(() => {
-    axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/resumeHeadline`,
-      {
-        resumeHeadline: '',
-      }, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Bearer ${Cookies.get('token')}`
-      }
+    if (success) {
+      setIsOpen(false);
+      dispatch(clearUpdateResumeHeadlineSlice());
+      dispatch(profileDashboardGet());
     }
-    ).then((response) => {
-      setResumeHeadline(response.data.data[0]?.resumeHeadline);
-    });
+  }, [success, dispatch]);
 
-
-  }, [resumeHeadline])
-
-
-  const modalBody = <ResumeHeadlineForm resumeHeadline={resumeHeadline} setResumeHeadline={setResumeHeadline} setIsOpen={setIsOpen} />;
+  const openModal = () => {
+    setIsOpen(true);
+  };
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
 
   return (
-    <div className="w-full rounded-2xl bg-white p-4 mt-5">
-
-      <div className="flex items-center mb-4">
-        <h1>Resume headline</h1><span className="ml-2 text-gray-400 hover:scale-125 cursor-pointer">
-          <FiEdit2 onClick={() => setIsOpen(true)} /> </span>
+    <div className="w-full rounded-2xl bg-white p-4 mt-5" >
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center">
+          <h1>Resume headline</h1>
+          {
+            profileDashboard[0]?.resumeHeadline
+            &&
+            <span className="ml-2 text-gray-400 hover:scale-125 cursor-pointer">
+              <FiEdit2 onClick={openModal} />
+            </span>
+          }
+        </div>
+        {
+          !profileDashboard[0]?.resumeHeadline
+          &&
+          <h1 className="text-blue-600 font-medium cursor-pointer"
+            onClick={openModal}>
+            Add resume headline
+          </h1>
+        }
       </div>
-      <p className="mb-4 text-sm text-gray-500">
-        {resumeHeadline}
-      </p>
+      <span className="text-sm text-gray-500">
+        {
+          !profileDashboard[0]?.resumeHeadline
+          && resumeHeadlineSummery
+        }
+        {profileDashboard[0]?.resumeHeadline}
+      </span>
       <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-
-        modalBody={modalBody}
+        modalBody={
+          <ResumeHeadlineForm
+            resumeHeadlineSummery={resumeHeadlineSummery}
+            id={profileDashboard[0]?.id}
+            defaultResumeHeadline={profileDashboard[0]?.resumeHeadline}
+            closeDialog={closeDialog} />
+        }
       />
     </div>
   )
 }
 
-export default ResumeHeadline
+export default ResumeHeadline;

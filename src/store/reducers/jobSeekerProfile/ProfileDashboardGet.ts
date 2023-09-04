@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 interface ProfileDashboard {
     id: number,
     profileSummary: string,
+    resumeHeadline: string,
 }
 
 interface registerUserState {
