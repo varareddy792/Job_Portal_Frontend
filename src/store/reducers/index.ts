@@ -20,6 +20,8 @@ import getEmployeeTypeSlice from './dropdown/employeeType';
 import getJobTypeSlice from './dropdown/jobType';
 import getPreferredShiftSlice from './dropdown/preferredShift';
 import getCareerProfileSlice from './jobSeekerProfile/getCareerProfile';
+import jobSeekerDeleteResumeReducer from './jobSeekerProfile/deleteResume'
+
 
 export const reducer = combineReducers({
     // Register
@@ -41,5 +43,6 @@ export const reducer = combineReducers({
     getEmployeeType: getEmployeeTypeSlice,
     getJobType: getJobTypeSlice,
     getPreferredShift: getPreferredShiftSlice,
-    getCareerProfile: getCareerProfileSlice
+    getCareerProfile: getCareerProfileSlice,
+    jobSeekerDeleteResume: jobSeekerDeleteResumeReducer
 });
