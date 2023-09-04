@@ -124,11 +124,10 @@ const ProfilePictureUploadForm: FC<Parameters> = ({ closeDialog }) => {
         </div>
       </form>
       <div className="flex flex-col justify-center items-center">
-        <p className="text-sm text-gray-400">By uploading your photograph, you certify that jobportal.com has the right to display this photograph to</p>
-        <div className="flex">
-          <p className="text-sm text-gray-400">the recruiters and that the uploaded file does not violate our</p>
-          <span className="ml-2 text-blue-600 text-sm font-bold">Terms of services.</span>
-        </div>
+        <p className="text-sm text-gray-400">By uploading your photograph, you certify that jobportal.com has the right to display this photograph to
+        {/* <div className="flex"> */}the recruiters and that the uploaded file does not violate our
+          <span className="ml-2 text-blue-600 text-sm font-bold">Terms of services.</span></p>
+        {/* </div> */}
       </div>
     </div>
   )
