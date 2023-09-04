@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef} from 'react';
+import { ChangeEvent, FC, useEffect, useRef } from 'react';
 import { useAppSelector } from '../../../..';
 import { useAppDispatch } from '../../../..';
 import { profilePictureUpload, clearPictureUploadState } from '../../../../store/reducers/jobSeekerProfile/uploadProfilePicture';
@@ -9,63 +9,52 @@ type Parameters = {
   closeDialog: () => void;
 };
 
-const ProfilePictureUploadForm : FC<Parameters> = ({closeDialog}) => {
+const ProfilePictureUploadForm: FC<Parameters> = ({ closeDialog }) => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const dispatchGetProfile = useAppDispatch();
-  const dispatchDelete = useAppDispatch();
   const { success, errorMessage, error } = useAppSelector((state) => state.jobSeekerUploadProfilePicture);
   const { success: successDelete, errorMessage: errorMessageDelete, error: errorDelete } = useAppSelector((state) => state.jobSeekerDeleteProfilePicture);
-  const {profileDashboard} = useAppSelector((state)=>state.getProfileDashboard)
+  const { profileDashboard } = useAppSelector((state) => state.getProfileDashboard)
 
   useEffect(() => {
-    console.log('in use effect ', success);
     if (success) {
-      console.log('in success ', success)
-      dispatchGetProfile(profileDashboardGet);
-      dispatch(clearPictureUploadState);
-      console.log('in success after dispatch', success)
-      // alert('Profile Picture successfully uploaded');
+      dispatch(profileDashboardGet());
+      dispatch(clearPictureUploadState());
+      alert('Profile Picture successfully uploaded');
     }
     if (error) {
       alert(`${errorMessage}`);
       dispatch(clearPictureUploadState)
     }
-  }, [success, error, errorMessage, dispatch, dispatchGetProfile]);
-  
+  }, [success, error, errorMessage, dispatch]);
+
   useEffect(() => {
-    console.log('in use effect ', successDelete);
     if (successDelete) {
-      console.log('in success ', successDelete)
-      dispatchGetProfile(profileDashboardGet);
-      dispatchDelete(clearDeleteProfilePictureState);
-      console.log('in success after dispatch', successDelete)
-      // alert('Profile Picture successfully Deleted');
+      dispatch(profileDashboardGet());
+      dispatch(clearDeleteProfilePictureState());
+      alert('Profile Picture successfully Deleted');
     }
     if (errorDelete) {
       alert(`${errorMessageDelete}`);
-      dispatchDelete(clearDeleteProfilePictureState)
+      dispatch(clearDeleteProfilePictureState)
     }
-  }, [successDelete, errorDelete, errorMessageDelete, dispatchDelete, dispatchGetProfile]);
-  
+  }, [successDelete, errorDelete, errorMessageDelete, dispatch]);
+
   const profilePictureFile = profileDashboard[0]?.profilePictureFile;
   let uploadFile = 'Upload photo';
   if (profilePictureFile) {
-    uploadFile = 'Change photo';   
+    uploadFile = 'Change photo';
   }
-
-  
-  console.log('success ', success);
 
   const handleDeletePicture = () => {
     const data = {
       profilePictureFile: '',
       profilePicturePath: ''
     }
-    dispatchDelete(deleteProfilePicture(data));
+    dispatch(deleteProfilePicture(data));
   }
-  const handleFileChange =  (event: ChangeEvent) => {
+  const handleFileChange = (event: ChangeEvent) => {
     event.preventDefault();
     const selectedFile = fileInputRef.current && fileInputRef.current.files && fileInputRef.current.files[0];
     if (selectedFile) {
@@ -79,7 +68,7 @@ const ProfilePictureUploadForm : FC<Parameters> = ({closeDialog}) => {
         if (fileInputRef.current) {
           fileInputRef.current.value = '';
         };
-        
+
       } catch (error) {
         console.log('error', error);
       }
@@ -127,7 +116,7 @@ const ProfilePictureUploadForm : FC<Parameters> = ({closeDialog}) => {
                     {uploadFile}
                   </label>
                 </div>
-                
+
               </div>
             )
           }

@@ -19,8 +19,9 @@ import Modal from '../../commonComponents/Modal';
 import ProfilePictureUploadForm from './ProfilePictureUpload/ProfilePictureUploadForm';
 
 const Profile = () => {
-  
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [profilePicPath, setProfilePicPath] = useState();
   const dispatch = useAppDispatch();
   const { success, profileDashboard } = useAppSelector((state) => state.getProfileDashboard);
   const { success: profilePictureUploadSuccess } = useAppSelector((state) => state.jobSeekerUploadProfilePicture);
@@ -47,16 +48,22 @@ const Profile = () => {
     }
   }, [profilePictureDeleteSuccess]);
 
-  let profilePictureCompletePath;
 
-  if (profileDashboard[0]?.profilePicturePath) {
-    profilePictureCompletePath = `${process.env.REACT_APP_PROFILE_PICTURE_FILE_LOCATION}/${profileDashboard[0]?.profilePicturePath}`;
-  }
+  useEffect(() => {
+    let profilePictureCompletePath;
 
-  let profilePicture = defaultPicture;
-  if (profilePictureCompletePath) {
-    profilePicture = profilePictureCompletePath;
-  }
+    if (profileDashboard[0]?.profilePicturePath) {
+      profilePictureCompletePath = `${process.env.REACT_APP_PROFILE_PICTURE_FILE_LOCATION}/${profileDashboard[0]?.profilePicturePath}`;
+      setProfilePicPath(profilePictureCompletePath as any)
+    } else {
+      //let profilePicture = defaultPicture;
+      //if (profilePictureCompletePath) {
+      //profilePicture = profilePictureCompletePath;
+      setProfilePicPath(defaultPicture as any)
+      //}
+    }
+
+  }, [profileDashboard])
 
   const openModal = () => {
     setIsOpen(true);
@@ -64,7 +71,7 @@ const Profile = () => {
   const closeDialog = () => {
     setIsOpen(false);
   }
-  
+
   return (
     <div className="bg-zinc-100 font-sans">
       <div className="px-40 py-10 flex justify-center flex-col">
@@ -73,7 +80,7 @@ const Profile = () => {
           <div className="grid grid-cols-5 h-full">
             <div className="h-full w-full flex justify-start items-center">
               <div className="rounded-full h-full">
-                <img src={profilePicture} alt="logo" height="100%" className="rounded-full object-fill h-30 w-40" onClick={openModal} />
+                <img src={profilePicPath} alt="logo" height="100%" className="rounded-full object-fill h-30 w-40" onClick={openModal} />
               </div>
             </div>
             <div className="col-start-2 col-end-6"> {isOpen &&

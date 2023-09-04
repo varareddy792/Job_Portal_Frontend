@@ -54,7 +54,6 @@ const getProfileDashboardSlice = createSlice({
             state.error = false;
         });
         builder.addCase(profileDashboardGet.fulfilled, (state, action: PayloadAction<ProfileDashboard[]>) => {
-            console.log('action ',action.payload)
             state.loading = false;
             state.success = true;
             state.error = false;
