@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 
 
 interface ProfileDashboard {
+    profilePictureFile: any;
+    profilePicturePath: any;
     id: number,
     profileSummary: string,
 }
