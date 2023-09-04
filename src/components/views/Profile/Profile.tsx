@@ -83,7 +83,8 @@ const Profile = () => {
                 <img src={profilePicPath} alt="logo" height="100%" className="rounded-full object-fill h-30 w-40" onClick={openModal} />
               </div>
             </div>
-            <div className="col-start-2 col-end-6"> {isOpen &&
+            {
+              isOpen && <div className="col-start-2 col-end-6">
               <Modal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -93,7 +94,8 @@ const Profile = () => {
                   />
                 }
               />
-            }</div>
+            </div>
+            }
             <div className="col-start-2 col-end-6">
               <div className="mb-4">
                 <div className="flex items-center">

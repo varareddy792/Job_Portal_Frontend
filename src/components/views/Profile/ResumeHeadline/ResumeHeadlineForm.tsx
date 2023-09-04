@@ -71,7 +71,7 @@ const ResumeHeadlineForm = ({ resumeHeadline, setResumeHeadline, setIsOpen }: an
             </div>
             <div className='float-right'>
               <button type="button" className="mr-3" onClick={() => setIsOpen(false)}>Cancel</button>
-              <button type="submit" className={watchResumeHeadline === 0 || watch('resumeHeadline') === null || resumeHeadline.length <= 0 ? "rounded-3xl bg-blue-100 text-white px-5 py-1.5" : "rounded-3xl bg-blue-500 text-white px-5 py-1.5"}
+              <button type="submit" className={watchResumeHeadline === 0 || watch('resumeHeadline') === null || resumeHeadline?.length <= 0 ? "rounded-3xl bg-blue-100 text-white px-5 py-1.5" : "rounded-3xl bg-blue-500 text-white px-5 py-1.5"}
                 disabled={watchResumeHeadline === 0 || watch('resumeHeadline') === null}>Save</button>
             </div>
           </form>
