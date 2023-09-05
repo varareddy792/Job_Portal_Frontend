@@ -1,48 +1,53 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form';
+import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useAppDispatch } from '../../../../';
 import { useAppSelector } from '../../../../';
 import { keySkillsUpdate } from '../../../../store/reducers/jobSeekerProfile/keySkills';
-import AutocompleteBox from '../../../commonComponents/AutocompleteBox';
 import { GrFormClose } from 'react-icons/gr';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import Select from 'react-select'
+import AutocompleteBox from '../../../commonComponents/AutocompleteBox';
 
 interface IFormInputs {
-  keySkills: string;
+  keySkills: {
+    value: string;
+    label: string
+  };
+
 }
 
-const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch, setIsOpen }: any) => {
 
+const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch, isAddDelete, setIsAddDeleted, setIsOpen }: any) => {
   const dispatch = useAppDispatch();
-  const [skill, setSkill] = useState({})
-  const [selected, setSelected] = useState({});
   const [query, setQuery] = useState("");
-  const [isAddDelete, setIsAddDeleted] = useState({ state: '', message: '', color: '' });
+
   const { success } = useAppSelector((state) => state.keySkills);
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors }
   } = useForm<IFormInputs>({
   });
 
   // OnSubmit button
-  const onSubmit = (data: IFormInputs) => {
-    if (!isInArray(data.keySkills, keySkillFetch)) {
-      if (data.keySkills !== '') {
-        const keySkillsVar = [...keySkillFetch, data.keySkills];
-        setKeySkillFetch([...keySkillFetch, data.keySkills]);
-      }
+  const onSubmit = async (data: IFormInputs) => {
+    console.log(data?.keySkills?.label, keySkillFetch);
+
+    if (!isInArray(data?.keySkills?.label, keySkillFetch)) {
+
       dispatch(keySkillsUpdate({
         keySkills: keySkillFetch.toString(),
 
-      }));
+      })).then(() => {
+        setIsAddDeleted({ state: "2", message: "Area of Expertise / Specialization added successfully", color: "green" });
+        setIsOpen(false);
+      });
     } else {
       setIsAddDeleted({ state: "1", message: "Already added!!", color: "red" });
     }
+
   };
 
   // Check the item in array
@@ -68,13 +73,25 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch,
         setIsAddDeleted({ state: "1", message: "Already added!!", color: "red" });
       }
     }
-
   }
+
+  const handleChange = (data: any) => {
+    console.log(data);
+
+    if (!isInArray(data?.label, keySkillFetch)) {
+      if (data?.label !== '')
+        setKeySkillFetch([...keySkillFetch, data?.label]);
+    } else {
+      setIsAddDeleted({ state: "1", message: "Already added!!", color: "red" });
+    }
+  }
+
   useEffect(() => {
     setTimeout(() => {
-      setIsAddDeleted({ state: '', message: '', color: '' });
-    }, 5000)
-  }, [isAddDelete]);
+      setIsAddDeleted({ state: '', message: '', color: '' })
+    }, 5000);
+
+  }, [])
 
   return (
     <div className="h-full">
@@ -89,24 +106,23 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch,
         {isAddDelete.state && <p className={`font-normal text-xs text-${isAddDelete.color}-500`}> {isAddDelete.message}</p>}
         <div className="flex flex-wrap">
           {keySkillFetch && keySkillFetch?.map((item: any, key: number) =>
-            <div key={key} className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5 ">{item}<GrFormClose className='h-6 w-6 float-right ml-2 cursor-pointer' onClick={() => handleAddDelete('Delete', item)} /></div>
+            <div key={key} className="text-xs border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5 ">{item}<GrFormClose className='h-4 w-4 float-right ml-2 cursor-pointer' onClick={() => handleAddDelete('Delete', item)} /></div>
           )}
         </div>
         <div className="col-start-1 col-end-4">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <AutocompleteBox
-                selected={selected}
-                setSelected={setSelected}
-                query={query}
-                setQuery={setQuery}
-                arrayDropDownContent={keySkill}
-                placeHolder={"Enter your area of Expertise/Specialization"}
-                register={register}
-                inputFieldName={"keySkills"}
-                databaseFieldName={'title'} />
+                control={control}
+                fieldName={"keySkills"}
+                dropdownData={keySkill.map(({ id, title }: any) => ({ value: id, label: title }))}
+                handleChange={handleChange}
+                isMulti={false}
+                defaultValue={[]}
+                placeholder={"Select key skill"}
+              />
               {errors.keySkills && <p className="font-normal text-xs text-red-500">{errors.keySkills.message}</p>}
-              {success && <p className="font-normal text-xs text-green-500"> Area of Expertise / Specialization added successfully</p>}
+
             </div>
 
 
@@ -117,7 +133,7 @@ const KeySkillsForm = ({ keySkill, setKeySkill, keySkillFetch, setKeySkillFetch,
                   .replace(/\s+/g, "")
                   .includes(query.toLowerCase().replace(/\s+/g, ""))
                 ).slice(0, 5)?.map((item: any, key: number) =>
-                  <div key={key} className="border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5 cursor-pointer" onClick={() => handleAddDelete('Add', item.title)} >{item.title}</div>
+                  <div key={key} className="text-xs border border-gray-300 rounded-3xl py-1 px-2 text-center m-1.5 cursor-pointer" onClick={() => handleAddDelete('Add', item.title)} >{item.title}</div>
                 )}
               </div>
             </div>

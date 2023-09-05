@@ -18,6 +18,7 @@ import getCurrencySlice from './dropdown/currency';
 import getLocationSlice from './dropdown/location';
 import getEmployeeTypeSlice from './dropdown/employeeType';
 import getJobTypeSlice from './dropdown/jobType';
+import getKeySkillsSlice from './dropdown/keySkills';
 import getPreferredShiftSlice from './dropdown/preferredShift';
 import getCareerProfileSlice from './jobSeekerProfile/getCareerProfile';
 import jobSeekerDeleteResumeReducer from './jobSeekerProfile/deleteResume'
@@ -44,5 +45,6 @@ export const reducer = combineReducers({
     getJobType: getJobTypeSlice,
     getPreferredShift: getPreferredShiftSlice,
     getCareerProfile: getCareerProfileSlice,
+    getKeySkills: getKeySkillsSlice,
     jobSeekerDeleteResume: jobSeekerDeleteResumeReducer
 });

@@ -23,6 +23,7 @@ const initialState: keySkillsState = {
 
 export const keySkillsUpdate = createAsyncThunk(
   "profile/keySkills", async (data: Headline) => {
+   
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/keySkills`,
         {

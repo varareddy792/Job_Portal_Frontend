@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import Select from 'react-select'
 import { useAppDispatch, useAppSelector } from '../../../../';
-import AutocompleteBox from '../../../commonComponents/AutocompleteBox';
 import { clearGetIndustrySlice, industryGet } from '../../../../store/reducers/dropdown/industry';
 import { careerProfileUpdate } from '../../../../store/reducers/jobSeekerProfile/careerProfileUpdate';
 import { clearGetDepartmentSlice, departmentGet } from '../../../../store/reducers/dropdown/department';
@@ -149,21 +149,22 @@ const CareerProfileForm = ({ formSummary, id, profileDashboard, closeDialog }: a
       <form id="my-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="pt-7 font-bold">Current industry</div>
         <div>
-          <AutocompleteBox
+          {/* <AutocompleteBox
             selected={selectedIndustry}
             setSelected={setSelectedIndustry}
             query={query}
             setQuery={setQuery}
-            arrayDropDownContent={industry}
+            dropDownData={industry}
             placeHolder={"Enter industry"}
             register={register}
             inputFieldName={"industry"}
             databaseFieldName={'title'}
-          />
+          /> */}
+          <Select options={industry} />
         </div>
         <div className="pt-7 font-bold">Department</div>
         <div>
-          <AutocompleteBox
+          {/* <AutocompleteBox
             selected={selectedDepartment}
             setSelected={setSelectedDepartment}
             query={query}
@@ -172,11 +173,12 @@ const CareerProfileForm = ({ formSummary, id, profileDashboard, closeDialog }: a
             placeHolder={"Enter department"}
             register={register}
             inputFieldName={"department"}
-            databaseFieldName={'title'} />
+            databaseFieldName={'title'} /> */}
+          <Select options={department} />
         </div>
         <div className="pt-7 font-bold">Role category</div>
         <div>
-          <AutocompleteBox
+          {/* <AutocompleteBox
             selected={selectedRoleCategory}
             setSelected={setSelectedRoleCategory}
             query={query}
@@ -185,11 +187,12 @@ const CareerProfileForm = ({ formSummary, id, profileDashboard, closeDialog }: a
             placeHolder={"Enter role category"}
             register={register}
             inputFieldName={"roleCategory"}
-            databaseFieldName={'title'} />
+            databaseFieldName={'title'} /> */}
+          <Select options={roleCategory} />
         </div>
         <div className="pt-7 font-bold">Job role</div>
         <div>
-          <AutocompleteBox
+          {/* <AutocompleteBox
             selected={selectedJobRole}
             setSelected={setSelectedJobRole}
             query={query}
@@ -198,7 +201,8 @@ const CareerProfileForm = ({ formSummary, id, profileDashboard, closeDialog }: a
             placeHolder={"Enter job role"}
             register={register}
             inputFieldName={"jobRole"}
-            databaseFieldName={'title'} />
+            databaseFieldName={'title'} /> */}
+          <Select options={jobRole} />
         </div>
         <div className="pt-7 font-bold">Desired job type</div>
         <div className='grid grid-cols-3 gap-4'>
@@ -240,7 +244,7 @@ const CareerProfileForm = ({ formSummary, id, profileDashboard, closeDialog }: a
         </div>
         <div className="pt-7 font-bold">Preferred work location (Max 10)</div>
         <div>
-          <AutocompleteBox
+          {/* <AutocompleteBox
             selected={selectedLocation}
             setSelected={setSelectedLocation}
             query={query}
@@ -249,7 +253,12 @@ const CareerProfileForm = ({ formSummary, id, profileDashboard, closeDialog }: a
             placeHolder={"Enter preferred work location"}
             register={register}
             inputFieldName={"preferredWorkLocation"}
-            databaseFieldName={'title'} />
+            databaseFieldName={'title'} /> */}
+          <Select
+            defaultValue={selectedLocation}
+            isMulti
+            name="location"
+            options={location} />
         </div>
         <div className="pt-7 font-bold">Expected salary</div>
         <div className='w-full'>

@@ -136,7 +136,7 @@ const Profile = () => {
             {/* card */}
             <ResumeHeadline />
             {/* card */}
-            <KeySkills />
+            <KeySkills profileDashboard={profileDashboard} />
             {/* card */}
             <Education />
             <ProfileSummary />
