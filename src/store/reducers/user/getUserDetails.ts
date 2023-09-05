@@ -2,40 +2,48 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-
-interface ProfileDashboard {
-    currentCountry: any;
-    currentLocation: any;
-    workStatus: any;
-    profilePictureFile: any;
-    profilePicturePath: any;
-    id: number,
-    profileSummary: string,
-    resumeHeadline: string,
+interface User {
+    id: number
+    name: string
+    email: string
+    accountType: string
+    accountId: string
+    mobileNumber: string
+    userType: string
 }
 
-interface registerUserState {
+const emptyUserData = (): User => ({
+    id: 0,
+    email: '',
+    name: '',
+    accountType: '',
+    accountId: '',
+    mobileNumber: '',
+    userType: ''
+})
+
+interface getUserState {
     loading: boolean;
     error: boolean;
     success: boolean;
-    profileDashboard: Array<ProfileDashboard>;
+    userData: User;
     errorMessage: string | undefined;
 }
-const initialState: registerUserState = {
+
+const initialState: getUserState = {
     loading: false,
     error: false,
     success: false,
-    profileDashboard: [],
+    userData: emptyUserData(),
     errorMessage: undefined,
 }
 
-export const profileDashboardGet = createAsyncThunk(
-    "getProfileDashboard", async () => {
+export const getUserData = createAsyncThunk(
+    "getUserData", async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/getProfileDashboard`,
+            const response = await axios.get(`${process.env.REACT_APP_API_PATH}/user/getDetails`,
                 {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${Cookies.get('token')}`
                     }
                 }
@@ -48,31 +56,31 @@ export const profileDashboardGet = createAsyncThunk(
         }
     });
 
-const getProfileDashboardSlice = createSlice({
-    name: 'getProfileDashboard',
+const getUserDataSlice = createSlice({
+    name: 'getUserData',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(profileDashboardGet.pending, (state) => {
+        builder.addCase(getUserData.pending, (state) => {
             state.loading = true;
             state.success = false;
             state.error = false;
         });
-        builder.addCase(profileDashboardGet.fulfilled, (state, action: PayloadAction<ProfileDashboard[]>) => {
+        builder.addCase(getUserData.fulfilled, (state, action: PayloadAction<User>) => {
+            console.log('user ', action.payload);
             state.loading = false;
             state.success = true;
-            state.error = false;
-            state.profileDashboard = action.payload;
+            state.userData = action.payload;
         });
-        builder.addCase(profileDashboardGet.rejected, (state, action) => {
+        builder.addCase(getUserData.rejected, (state, action) => {
             state.success = false;
             state.loading = false;
             state.error = true;
-            state.profileDashboard = [];
+            state.userData = emptyUserData();
             state.errorMessage = action.error.message;
         });
     },
     reducers: {
-        clearGetProfileDashboardSlice: (state) => {
+        clearGetUserDataSlice: (state) => {
             state.loading = false;
             state.error = false;
             state.success = false;
@@ -80,5 +88,5 @@ const getProfileDashboardSlice = createSlice({
         },
     }
 });
-export default getProfileDashboardSlice.reducer;
-export const { clearGetProfileDashboardSlice } = getProfileDashboardSlice.actions;
+export default getUserDataSlice.reducer;
+export const { clearGetUserDataSlice } = getUserDataSlice.actions;

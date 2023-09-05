@@ -17,11 +17,12 @@ import CareerProfile from './CareerProfile/CareerProfile';
 import defaultPicture from '../../../../src/assets/jpeg/default_picture.jpg';
 import Modal from '../../commonComponents/Modal';
 import ProfilePictureUploadForm from './ProfilePictureUpload/ProfilePictureUploadForm';
+import ProfileBasicDetails from './ProfileBasicDetails/ProfileBasicDetails';
 
 const Profile = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [profilePicPath, setProfilePicPath] = useState();
+  const [profilePicPath, setProfilePicPath] = useState<string>('');
   const dispatch = useAppDispatch();
   const { success, profileDashboard } = useAppSelector((state) => state.getProfileDashboard);
   const { success: profilePictureUploadSuccess } = useAppSelector((state) => state.jobSeekerUploadProfilePicture);
@@ -51,16 +52,11 @@ const Profile = () => {
 
   useEffect(() => {
     let profilePictureCompletePath;
-
     if (profileDashboard[0]?.profilePicturePath) {
       profilePictureCompletePath = `${process.env.REACT_APP_PROFILE_PICTURE_FILE_LOCATION}/${profileDashboard[0]?.profilePicturePath}`;
-      setProfilePicPath(profilePictureCompletePath as any)
+      setProfilePicPath(profilePictureCompletePath);
     } else {
-      //let profilePicture = defaultPicture;
-      //if (profilePictureCompletePath) {
-      //profilePicture = profilePictureCompletePath;
-      setProfilePicPath(defaultPicture as any)
-      //}
+      setProfilePicPath(defaultPicture);
     }
 
   }, [profileDashboard])
@@ -94,9 +90,8 @@ const Profile = () => {
                   />
                 }
               />
-            </div>
-            }
-            <div className="col-start-2 col-end-6">
+            }</div>
+            {/* <div className="col-start-2 col-end-6">
               <div className="mb-4">
                 <div className="flex items-center">
                   <h1 className="font-semibold text-2xl">Dibyalochan Parida</h1><span className="ml-2 text-gray-400 hover:scale-125 cursor-pointer"> <FiEdit2 /> </span>
@@ -127,7 +122,9 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
+            {/* Profile basic details */}
+            <ProfileBasicDetails/>
           </div>
         </div>
         <div className="grid grid-cols-4 mt-5">
