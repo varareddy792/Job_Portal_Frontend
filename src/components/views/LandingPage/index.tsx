@@ -78,8 +78,8 @@ const LandingPage = () => {
                 <img src={Group2} alt="Group2" className="absolute top-44 right-96 z-1" />
                 <img src={Ellipse26} alt="Ellipse26" className="absolute top-0 left-32 opacity-50 z-1 h-5/6" />
             </div>
-            <div className="h-[90%] bg-[#F8FAFC] px-20 py-10">
-                <div className="flex justify-between items-center mb-10">
+            <div className="h-[90%] bg-[#F8FAFC] px-20 flex flex-col justify-center">
+                <div className="flex justify-between items-center mb-12">
                     <h1 className="text-3xl font-bold">Most demanding categories</h1>
                     <button className="text-lg flex justify-center items-center text-[#312E81]"><span className="mr-2">All categories</span><img src={ArrowRight} alt="ArrowRight" /></button>
                 </div>
@@ -327,8 +327,8 @@ const LandingPage = () => {
                     <span className="absolute bottom-20 left-60 border border-gray-300 bg-[#F8FAFC] rounded-3xl px-5 py-2 z-10 flex justify-center items-center"><img src={NotificationIcon} alt="NotificationIcon" /><span className="ml-2">Job alert</span></span>
                 </div>
             </div>
-            <div className="h-[60%] bg-[#F8FAFC] px-20 py-10">
-                <div className="flex justify-between items-center mb-10">
+            <div className="h-[70%] bg-[#F8FAFC] px-20 flex flex-col justify-center">
+                <div className="flex justify-between items-center mb-12">
                     <h1 className="text-3xl font-bold">Find best companies</h1>
                     <button className="text-lg flex justify-center items-center text-[#312E81]"><span className="mr-2">All companies</span><img src={ArrowRight} alt="ArrowRight" /></button>
                 </div>
@@ -422,8 +422,8 @@ const LandingPage = () => {
                     </div>
                 </Carousel>
             </div>
-            <div className="h-[60%] bg-[#FFF] px-20 py-10">
-                <div className="flex justify-between items-center mb-10">
+            <div className="h-[70%] bg-[#FFF] px-20 flex flex-col justify-center">
+                <div className="flex justify-between items-center mb-12">
                     <h1 className="text-3xl font-bold">Featured cities</h1>
                     <button className="text-lg flex justify-center items-center text-[#312E81]"><span className="mr-2">All cities</span><img src={ArrowRight} alt="ArrowRight" /></button>
                 </div>
