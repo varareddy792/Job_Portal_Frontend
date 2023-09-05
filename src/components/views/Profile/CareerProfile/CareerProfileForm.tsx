@@ -150,8 +150,8 @@ const CareerProfileForm = ({ formSummary, id, profileDashboard, closeDialog }: a
         <div className="pt-7 font-bold">Current industry</div>
         <div>
           {/* <AutocompleteBox
-            selected={selected}
-            setSelected={setSelected}
+            selected={selectedIndustry}
+            setSelected={setSelectedIndustry}
             query={query}
             setQuery={setQuery}
             dropDownData={industry}

@@ -22,7 +22,7 @@ import ProfileBasicDetails from './ProfileBasicDetails/ProfileBasicDetails';
 const Profile = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [profilePicPath, setProfilePicPath] = useState<string>('');
+  const [profilePicPath, setProfilePicPath] = useState();
   const dispatch = useAppDispatch();
   const { success, profileDashboard } = useAppSelector((state) => state.getProfileDashboard);
   const { success: profilePictureUploadSuccess } = useAppSelector((state) => state.jobSeekerUploadProfilePicture);
@@ -52,11 +52,16 @@ const Profile = () => {
 
   useEffect(() => {
     let profilePictureCompletePath;
+
     if (profileDashboard[0]?.profilePicturePath) {
       profilePictureCompletePath = `${process.env.REACT_APP_PROFILE_PICTURE_FILE_LOCATION}/${profileDashboard[0]?.profilePicturePath}`;
-      setProfilePicPath(profilePictureCompletePath);
+      setProfilePicPath(profilePictureCompletePath as any)
     } else {
-      setProfilePicPath(defaultPicture);
+      //let profilePicture = defaultPicture;
+      //if (profilePictureCompletePath) {
+      //profilePicture = profilePictureCompletePath;
+      setProfilePicPath(defaultPicture as any)
+      //}
     }
 
   }, [profileDashboard])
@@ -81,19 +86,19 @@ const Profile = () => {
             </div>
             {
               isOpen && <div className="col-start-2 col-end-6">
-              <Modal
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-                modalBody={
-                  <ProfilePictureUploadForm
-                    closeDialog={closeDialog}
-                  />
-                }
-              />
+                <Modal
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                  modalBody={
+                    <ProfilePictureUploadForm
+                      closeDialog={closeDialog}
+                    />
+                  }
+                />
+              </div>
             }
-            </div>
-            
-            {/* Profile basic details */}
+           
+            {/* display profile basic details */}
             <ProfileBasicDetails/>
           </div>
         </div>
