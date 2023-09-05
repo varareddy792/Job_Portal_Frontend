@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiEdit2 } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
@@ -14,10 +14,19 @@ import PersonalDetails from './PersonalDetails/PersonalDetails';
 import { useAppDispatch, useAppSelector } from '../../../';
 import { profileDashboardGet, clearGetProfileDashboardSlice } from '../../../store/reducers/jobSeekerProfile/ProfileDashboardGet';
 import CareerProfile from './CareerProfile/CareerProfile';
+import defaultPicture from '../../../../src/assets/jpeg/default_picture.jpg';
+import Modal from '../../commonComponents/Modal';
+import ProfilePictureUploadForm from './ProfilePictureUpload/ProfilePictureUploadForm';
 
 const Profile = () => {
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [profilePicPath, setProfilePicPath] = useState();
   const dispatch = useAppDispatch();
   const { success, profileDashboard } = useAppSelector((state) => state.getProfileDashboard);
+  const { success: profilePictureUploadSuccess } = useAppSelector((state) => state.jobSeekerUploadProfilePicture);
+  const { success: profilePictureDeleteSuccess } = useAppSelector((state) => state.jobSeekerDeleteProfilePicture)
+
   useEffect(() => {
     dispatch(profileDashboardGet());
   }, [dispatch]);
@@ -27,6 +36,42 @@ const Profile = () => {
     }
   }, [dispatch, success]);
 
+  useEffect(() => {
+    if (profilePictureUploadSuccess) {
+      setIsOpen(false);
+    }
+  }, [profilePictureUploadSuccess]);
+
+  useEffect(() => {
+    if (profilePictureDeleteSuccess) {
+      setIsOpen(false);
+    }
+  }, [profilePictureDeleteSuccess]);
+
+
+  useEffect(() => {
+    let profilePictureCompletePath;
+
+    if (profileDashboard[0]?.profilePicturePath) {
+      profilePictureCompletePath = `${process.env.REACT_APP_PROFILE_PICTURE_FILE_LOCATION}/${profileDashboard[0]?.profilePicturePath}`;
+      setProfilePicPath(profilePictureCompletePath as any)
+    } else {
+      //let profilePicture = defaultPicture;
+      //if (profilePictureCompletePath) {
+      //profilePicture = profilePictureCompletePath;
+      setProfilePicPath(defaultPicture as any)
+      //}
+    }
+
+  }, [profileDashboard])
+
+  const openModal = () => {
+    setIsOpen(true);
+  }
+  const closeDialog = () => {
+    setIsOpen(false);
+  }
+
   return (
     <div className="bg-zinc-100 font-sans">
       <div className="px-40 py-10 flex justify-center flex-col">
@@ -35,9 +80,22 @@ const Profile = () => {
           <div className="grid grid-cols-5 h-full">
             <div className="h-full w-full flex justify-start items-center">
               <div className="rounded-full h-full">
-                <img src="/logo192.png" alt="logo" height="100%" />
+                <img src={profilePicPath} alt="logo" height="100%" className="rounded-full object-fill h-30 w-40" onClick={openModal} />
               </div>
             </div>
+            {
+              isOpen && <div className="col-start-2 col-end-6">
+              <Modal
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                modalBody={
+                  <ProfilePictureUploadForm
+                    closeDialog={closeDialog}
+                  />
+                }
+              />
+            </div>
+            }
             <div className="col-start-2 col-end-6">
               <div className="mb-4">
                 <div className="flex items-center">

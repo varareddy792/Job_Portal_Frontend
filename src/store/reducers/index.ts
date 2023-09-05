@@ -22,6 +22,8 @@ import getKeySkillsSlice from './dropdown/keySkills';
 import getPreferredShiftSlice from './dropdown/preferredShift';
 import getCareerProfileSlice from './jobSeekerProfile/getCareerProfile';
 import jobSeekerDeleteResumeReducer from './jobSeekerProfile/deleteResume'
+import jobSeekerPictureUploadSlice from './jobSeekerProfile/uploadProfilePicture';
+import jobSeekerDeleteProfilePictureReducer from './jobSeekerProfile/deleteProfilePicture';
 
 
 export const reducer = combineReducers({
@@ -46,5 +48,7 @@ export const reducer = combineReducers({
     getPreferredShift: getPreferredShiftSlice,
     getCareerProfile: getCareerProfileSlice,
     getKeySkills: getKeySkillsSlice,
-    jobSeekerDeleteResume: jobSeekerDeleteResumeReducer
+    jobSeekerDeleteResume: jobSeekerDeleteResumeReducer,
+    jobSeekerUploadProfilePicture: jobSeekerPictureUploadSlice,
+    jobSeekerDeleteProfilePicture: jobSeekerDeleteProfilePictureReducer
 });
