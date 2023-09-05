@@ -8,6 +8,7 @@ interface ProfileDashboard {
     profilePicturePath: any;
     id: number,
     profileSummary: string,
+    resumeHeadline: string,
 }
 
 interface registerUserState {

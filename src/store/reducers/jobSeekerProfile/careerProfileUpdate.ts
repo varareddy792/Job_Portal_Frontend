@@ -3,14 +3,23 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 interface CareerProfileUpdate {
-  id: number,
-  profileSummary: string | null
+  industry: string
+  department: string
+  roleCategory: string
+  jobRole: string
+  careerProfileJobType: { jobType: string; }[]
+  careerProfileEmployeeType: { employeeType: string; }[]
+  careerProfilePreferredLocations: { location: string; }[]
+  careerProfilePreferredShift: { preferredShift: string; }[]
+  currency: string
+  expectedSalary: string
+  jobSeekerProfile: number
 }
 export interface registerUserState {
   loading: boolean;
   error: boolean;
   success: boolean;
-  profileDashboard: Array<CareerProfileUpdate>;
+  careerProfile: Array<CareerProfileUpdate>;
   errorMessage: string | undefined;
 }
 
@@ -18,15 +27,16 @@ const initialState: registerUserState = {
   loading: false,
   error: false,
   success: false,
-  profileDashboard: [],
+  careerProfile: [],
   errorMessage: undefined,
 }
 
-
 export const careerProfileUpdate = createAsyncThunk(
-  "profileDashboard", async (data: CareerProfileUpdate) => {
+  "careerProfile", async (data: CareerProfileUpdate) => {
     try {
-      const response = await axios.put(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/profileDashboard`,
+      console.log("data====", data);
+
+      const response = await axios.post(`${process.env.REACT_APP_API_PATH}/jobSeekerProfile/careerProfile`,
         data,
         {
           headers: {
@@ -43,7 +53,7 @@ export const careerProfileUpdate = createAsyncThunk(
   });
 
 const updateCareerProfileUpdateSlice = createSlice({
-  name: 'profileDashboard',
+  name: 'careerProfile',
   initialState,
   extraReducers: (builder) => {
     builder.addCase(careerProfileUpdate.pending, (state) => {
@@ -55,13 +65,13 @@ const updateCareerProfileUpdateSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.error = false;
-      state.profileDashboard = action.payload;
+      state.careerProfile = action.payload;
     });
     builder.addCase(careerProfileUpdate.rejected, (state, action) => {
       state.success = false;
       state.loading = false;
       state.error = true;
-      state.profileDashboard = [];
+      state.careerProfile = [];
       state.errorMessage = action.error.message;
     });
   },
