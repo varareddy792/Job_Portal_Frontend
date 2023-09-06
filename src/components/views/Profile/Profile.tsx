@@ -74,32 +74,35 @@ const Profile = () => {
   }
 
   return (
-    <div className="bg-zinc-100 font-sans">
-      <div className="px-40 py-10 flex justify-center flex-col">
-        {/* card */}
-        <div className="w-full rounded-2xl bg-white p-8">
-          <div className="grid grid-cols-5 h-full">
-            <div className="h-full w-full flex justify-start items-center">
-              <div className="rounded-full h-full">
-                <img src={profilePicPath} alt="logo" height="100%" className="rounded-full object-fill h-30 w-40" onClick={openModal} />
+    <>
+      <div className="h-[10%] w-full"></div>
+      <div className="bg-zinc-100 font-sans">
+        <div className="px-40 py-10 flex justify-center flex-col">
+          {/* card */}
+          <div className="w-full rounded-2xl bg-white p-8">
+            <div className="grid grid-cols-5 h-full">
+              <div className="h-full w-full flex justify-start items-center">
+                <div className="rounded-full h-full">
+                  <img src={profilePicPath} alt="logo" height="100%" className="rounded-full object-fill h-30 w-40" onClick={openModal} />
+                </div>
               </div>
+              {
+                isOpen && <div className="col-start-2 col-end-6">
+                  <Modal
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    modalBody={
+                      <ProfilePictureUploadForm
+                        closeDialog={closeDialog}
+                      />
+                    }
+                  />
+                </div>
+              }
+
+              {/* display profile basic details */}
+              <ProfileBasicDetails />
             </div>
-            {
-              isOpen && <div className="col-start-2 col-end-6">
-                <Modal
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
-                  modalBody={
-                    <ProfilePictureUploadForm
-                      closeDialog={closeDialog}
-                    />
-                  }
-                />
-              </div>
-            }
-           
-            {/* display profile basic details */}
-            <ProfileBasicDetails/>
           </div>
           <div className="grid grid-cols-4 mt-5">
             <div>
@@ -162,15 +165,15 @@ const Profile = () => {
               </div>
             </div> */}
 
-            {/* card */}
-            <ResumeHeadline />
-            {/* card */}
-            <KeySkills profileDashboard={profileDashboard} />
-            {/* card */}
-            <Education />
-            <ProfileSummary />
-            <PersonalDetails />
-            {/* card */}
+              {/* card */}
+              <ResumeHeadline />
+              {/* card */}
+              <KeySkills profileDashboard={profileDashboard} />
+              {/* card */}
+              <Education />
+              <ProfileSummary />
+              <PersonalDetails />
+              {/* card */}
 
               {/* card */}
               <CareerProfile profileDashboard={profileDashboard} />
